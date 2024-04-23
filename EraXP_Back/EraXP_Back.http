@@ -1,0 +1,6 @@
+@EraXP_Back_HostAddress = http://localhost:5231
+
+GET {{EraXP_Back_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
