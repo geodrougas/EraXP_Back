@@ -8,41 +8,57 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c8272286-64a4-442d-b946-b3d6a1d3738d" name="Changes" comment="" />
+    <list default="true" id="c8272286-64a4-442d-b946-b3d6a1d3738d" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/EraXP_Back/DatabaseModels/Course.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/EraXP_Back/DatabaseModels/CourseToCourse.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/EraXP_Back/DatabaseModels/Department.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/EraXP_Back/DatabaseModels/DepartmentToDepartment.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/EraXP_Back/DatabaseModels/Roles.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/EraXP_Back/DatabaseModels/University.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/EraXP_Back/DatabaseModels/UniversityPhoto.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/EraXP_Back/DatabaseModels/User.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/EraXP_Back/DatabaseModels/UserRoles.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/EraXP_Back/DatabaseModels/UserUniversityRating.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.EraXP_Back/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.EraXP_Back/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 1
-}]]></component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 1
+}</component>
   <component name="ProjectId" id="2fVVZdeS4hEORmC8Yx7hBOwdcb5" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    ".NET Launch Settings Profile.EraXP_Back: http.executor": "Debug",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;.NET Launch Settings Profile.EraXP_Back: http.executor&quot;: &quot;Debug&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "rider.external.source.directories": [
-      "/home/coldhammer/.config/JetBrains/Rider2023.3/resharper-host/DecompilerCache",
-      "/home/coldhammer/.config/JetBrains/Rider2023.3/resharper-host/SourcesCache",
-      "/home/coldhammer/.local/share/Symbols/src"
+  &quot;keyToStringList&quot;: {
+    &quot;rider.external.source.directories&quot;: [
+      &quot;/home/coldhammer/.config/JetBrains/Rider2023.3/resharper-host/DecompilerCache&quot;,
+      &quot;/home/coldhammer/.config/JetBrains/Rider2023.3/resharper-host/SourcesCache&quot;,
+      &quot;/home/coldhammer/.local/share/Symbols/src&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected=".NET Launch Settings Profile.EraXP_Back: http">
     <configuration name="EraXP_Back: http" type="LaunchSettings" factoryName=".NET Launch Settings Profile">
       <option name="LAUNCH_PROFILE_PROJECT_FILE_PATH" value="$PROJECT_DIR$/EraXP_Back/EraXP_Back.csproj" />
@@ -96,7 +112,10 @@
       <method v="2" />
     </configuration>
     <configuration default="true" type="docker-deploy" factoryName="dockerfile" temporary="true">
-      <deployment type="dockerfile" />
+      <deployment type="dockerfile">
+        <settings />
+      </deployment>
+      <EXTENSION ID="com.jetbrains.rider.docker.debug" isFastModeEnabled="true" isSslEnabled="false" />
       <method v="2" />
     </configuration>
   </component>
@@ -108,7 +127,8 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1713886288261</updated>
-      <workItem from="1713886289301" duration="993000" />
+      <workItem from="1713886289301" duration="1606000" />
+      <workItem from="1714241138753" duration="5823000" />
     </task>
     <servers />
   </component>
