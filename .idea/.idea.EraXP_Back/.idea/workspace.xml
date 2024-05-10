@@ -9,17 +9,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c8272286-64a4-442d-b946-b3d6a1d3738d" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/EraXP_Back/DatabaseModels/Course.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/EraXP_Back/DatabaseModels/CourseToCourse.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/EraXP_Back/DatabaseModels/Department.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/EraXP_Back/DatabaseModels/DepartmentToDepartment.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/EraXP_Back/DatabaseModels/Roles.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/EraXP_Back/DatabaseModels/University.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/EraXP_Back/DatabaseModels/UniversityPhoto.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/EraXP_Back/DatabaseModels/User.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/EraXP_Back/DatabaseModels/UserRoles.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/EraXP_Back/DatabaseModels/UserUniversityRating.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/EraXP_Back/Controllers/V1/LoginController.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/EraXP_Back/Controllers/V1/UniversityController.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/EraXP_Back/Models/Domain/UserClaims.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/EraXP_Back/Utils/UserUtils.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.EraXP_Back/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.EraXP_Back/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EraXP_Back/Controllers/WeatherController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/EraXP_Back/Controllers/V1/WeatherController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EraXP_Back/DatabaseModels/Course.cs" beforeDir="false" afterPath="$PROJECT_DIR$/EraXP_Back/Models/Database/Course.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EraXP_Back/DatabaseModels/CourseToCourse.cs" beforeDir="false" afterPath="$PROJECT_DIR$/EraXP_Back/Models/Database/CourseToCourse.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EraXP_Back/DatabaseModels/Department.cs" beforeDir="false" afterPath="$PROJECT_DIR$/EraXP_Back/Models/Database/Department.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EraXP_Back/DatabaseModels/DepartmentToDepartment.cs" beforeDir="false" afterPath="$PROJECT_DIR$/EraXP_Back/Models/Database/DepartmentToDepartment.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EraXP_Back/DatabaseModels/Roles.cs" beforeDir="false" afterPath="$PROJECT_DIR$/EraXP_Back/Models/Database/Roles.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EraXP_Back/DatabaseModels/University.cs" beforeDir="false" afterPath="$PROJECT_DIR$/EraXP_Back/Models/Database/University.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EraXP_Back/DatabaseModels/UniversityPhoto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/EraXP_Back/Models/Database/UniversityPhoto.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EraXP_Back/DatabaseModels/User.cs" beforeDir="false" afterPath="$PROJECT_DIR$/EraXP_Back/Models/Database/User.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EraXP_Back/DatabaseModels/UserRoles.cs" beforeDir="false" afterPath="$PROJECT_DIR$/EraXP_Back/Models/Database/UserRoles.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EraXP_Back/DatabaseModels/UserUniversityRating.cs" beforeDir="false" afterPath="$PROJECT_DIR$/EraXP_Back/Models/Database/UserUniversityRating.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EraXP_Back/EraXP_Back.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/EraXP_Back/EraXP_Back.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EraXP_Back/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/EraXP_Back/Program.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,6 +36,7 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 1
 }</component>
@@ -37,28 +45,28 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;.NET Launch Settings Profile.EraXP_Back: http.executor&quot;: &quot;Debug&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    ".NET Launch Settings Profile.EraXP_Back: http.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;rider.external.source.directories&quot;: [
-      &quot;/home/coldhammer/.config/JetBrains/Rider2023.3/resharper-host/DecompilerCache&quot;,
-      &quot;/home/coldhammer/.config/JetBrains/Rider2023.3/resharper-host/SourcesCache&quot;,
-      &quot;/home/coldhammer/.local/share/Symbols/src&quot;
+  "keyToStringList": {
+    "rider.external.source.directories": [
+      "/home/coldhammer/.config/JetBrains/Rider2023.3/resharper-host/DecompilerCache",
+      "/home/coldhammer/.config/JetBrains/Rider2023.3/resharper-host/SourcesCache",
+      "/home/coldhammer/.local/share/Symbols/src"
     ]
   }
-}</component>
+}]]></component>
   <component name="RunManager" selected=".NET Launch Settings Profile.EraXP_Back: http">
     <configuration name="EraXP_Back: http" type="LaunchSettings" factoryName=".NET Launch Settings Profile">
       <option name="LAUNCH_PROFILE_PROJECT_FILE_PATH" value="$PROJECT_DIR$/EraXP_Back/EraXP_Back.csproj" />
@@ -128,14 +136,47 @@
       <option name="presentableId" value="Default" />
       <updated>1713886288261</updated>
       <workItem from="1713886289301" duration="1606000" />
-      <workItem from="1714241138753" duration="5823000" />
+      <workItem from="1714241138753" duration="6002000" />
+      <workItem from="1715277180179" duration="9305000" />
+      <workItem from="1715380241058" duration="1932000" />
     </task>
+    <task id="LOCAL-00001" summary="Added the domain models">
+      <option name="closed" value="true" />
+      <created>1714247774130</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1714247774130</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="UnityCheckinConfiguration" checkUnsavedScenes="true" />
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+    <MESSAGE value="Added the domain models" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added the domain models" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/EraXP_Back/Program.cs</url>
+          <line>14</line>
+          <properties documentPath="$PROJECT_DIR$/EraXP_Back/Program.cs" initialLine="14" containingFunctionPresentation="">
+            <startOffsets>
+              <option value="399" />
+            </startOffsets>
+            <endOffsets>
+              <option value="477" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

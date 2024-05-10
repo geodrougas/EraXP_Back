@@ -1,3 +1,6 @@
+using EraXP_Back.Models.Domain;
+using EraXP_Back.Utils;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -6,6 +9,21 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddControllers();
+
+builder.Services.AddSingleton<UserClaimUtils>(it =>
+{
+    IConfigurationSection section = builder.Configuration.GetSection("userUtils");
+
+    if (!section.Exists())
+        throw new NullReferenceException("userUtils section was missing from the configuration!");
+    string? key = section["key"];
+    string? encoding = section["encoding"] ?? "UTF-8";
+
+    if (key == null)
+        throw new NullReferenceException("The key for the JWT Signature is missing from the configuration!");
+
+    return new UserClaimUtils(key, encoding);
+});
 
 var app = builder.Build();
 
