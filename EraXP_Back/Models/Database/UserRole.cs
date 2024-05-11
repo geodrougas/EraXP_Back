@@ -1,11 +1,11 @@
 namespace EraXP_Back.Models;
 
-public class UserRoles
+public class UserRole
 {
     public string Username { get; set; }
     public Guid Role { get; set; }
 
-    public UserRoles(string username, Guid role)
+    public UserRole(string username, Guid role)
     {
         Username = username;
         Role = role;

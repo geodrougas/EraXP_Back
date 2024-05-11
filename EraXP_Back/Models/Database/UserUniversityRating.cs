@@ -2,7 +2,7 @@ namespace EraXP_Back.Models;
 
 public class UserUniversityRating
 {
-    public string Username { get; set; }
+    public string? Username { get; set; }
     public Guid UniversityId { get; set; }
     public int Stars { get; set; }
     public string Comment { get; set; }

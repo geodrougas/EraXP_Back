@@ -10,7 +10,7 @@ public class UserUtils()
     public const int MIN_PASSWORD_LENGTH = 10;
     public bool ValidatePassword(User user, string password)
     {
-        return user.Base64HashedPassword == GetHashedPasswordAsBase64(password, user.SecurityStamp);
+        return user.Base64HashedPassword == GetHashedPasswordAsBase64(password, user.SecurityStamp!.Value);
     }
 
     public string? CreatePassword(User user, string password, string password2)
@@ -24,7 +24,7 @@ public class UserUtils()
         user.SecurityStamp = Guid.NewGuid();
 
         user.Base64HashedPassword = GetHashedPasswordAsBase64(
-            password, user.SecurityStamp);
+            password, user.SecurityStamp.Value);
 
         return null;
     }

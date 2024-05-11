@@ -13,7 +13,7 @@ public class User
     public Guid? ConcurrencyStamp { get; set; }
 
     public bool RolesLoaded { get; set; } = false;
-    public List<Roles> UserRoles { get; set; }
+    public List<Role> UserRoles { get; set; }
 
     public User(string username, string normalisedUsername, string email, string normalisedEmail,
         Guid universityId, Guid departmentId)
@@ -24,7 +24,7 @@ public class User
         NormalisedEmail = normalisedEmail;
         UniversityId = universityId;
         DepartmentId = departmentId;
-        UserRoles = new List<Roles>();
+        UserRoles = new List<Role>();
     }
     
     

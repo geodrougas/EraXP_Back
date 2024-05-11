@@ -8,16 +8,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c8272286-64a4-442d-b946-b3d6a1d3738d" name="Changes" comment="* Renamed UserUtils.cs -&gt; UserClaimUtils.cs">
-      <change afterPath="$PROJECT_DIR$/EraXP_Back/Models/Dto/CredentialsDto.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/EraXP_Back/Models/Dto/UserDto.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/EraXP_Back/Repositories/IUserRepository.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/EraXP_Back/Utils/UserUtils.cs" afterDir="false" />
+    <list default="true" id="c8272286-64a4-442d-b946-b3d6a1d3738d" name="Changes" comment="* Created login api interface and create user interface">
+      <change afterPath="$PROJECT_DIR$/EraXP_Back/Models/Dto/DepartmentDto.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/EraXP_Back/Models/Dto/UniversityDto.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/EraXP_Back/Models/Dto/UniversityPhotoDto.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/EraXP_Back/Models/Dto/UniversityUserRatingsDto.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/EraXP_Back/Repositories/IUniversityRepository.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.EraXP_Back/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.EraXP_Back/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EraXP_Back/Controllers/V1/LoginController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/EraXP_Back/Controllers/V1/LoginController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/EraXP_Back/Controllers/V1/UniversityController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/EraXP_Back/Controllers/V1/UniversityController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EraXP_Back/Models/Database/Roles.cs" beforeDir="false" afterPath="$PROJECT_DIR$/EraXP_Back/Models/Database/Role.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EraXP_Back/Models/Database/University.cs" beforeDir="false" afterPath="$PROJECT_DIR$/EraXP_Back/Models/Database/University.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/EraXP_Back/Models/Database/User.cs" beforeDir="false" afterPath="$PROJECT_DIR$/EraXP_Back/Models/Database/User.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EraXP_Back/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/EraXP_Back/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EraXP_Back/Models/Database/UserRoles.cs" beforeDir="false" afterPath="$PROJECT_DIR$/EraXP_Back/Models/Database/UserRole.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EraXP_Back/Models/Database/UserUniversityRating.cs" beforeDir="false" afterPath="$PROJECT_DIR$/EraXP_Back/Models/Database/UserUniversityRating.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EraXP_Back/Utils/UserUtils.cs" beforeDir="false" afterPath="$PROJECT_DIR$/EraXP_Back/Utils/UserUtils.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -141,7 +145,7 @@
       <workItem from="1714241138753" duration="6002000" />
       <workItem from="1715277180179" duration="9305000" />
       <workItem from="1715380241058" duration="7671000" />
-      <workItem from="1715435127000" duration="3212000" />
+      <workItem from="1715435127000" duration="7051000" />
     </task>
     <task id="LOCAL-00001" summary="Added the domain models">
       <option name="closed" value="true" />
@@ -167,7 +171,15 @@
       <option name="project" value="LOCAL" />
       <updated>1715382355067</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="* Created login api interface and create user interface">
+      <option name="closed" value="true" />
+      <created>1715438366517</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1715438366517</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -179,20 +191,21 @@
     <MESSAGE value="Added the domain models" />
     <MESSAGE value="* Generated the UserClaimUtils.cs class that handles the JWT checks&#10;&#10;* Moved stuff around" />
     <MESSAGE value="* Renamed UserUtils.cs -&gt; UserClaimUtils.cs" />
-    <option name="LAST_COMMIT_MESSAGE" value="* Renamed UserUtils.cs -&gt; UserClaimUtils.cs" />
+    <MESSAGE value="* Created login api interface and create user interface" />
+    <option name="LAST_COMMIT_MESSAGE" value="* Created login api interface and create user interface" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/EraXP_Back/Controllers/V1/UniversityController.cs</url>
-          <line>16</line>
+          <line>24</line>
           <properties documentPath="$PROJECT_DIR$/EraXP_Back/Controllers/V1/UniversityController.cs" initialLine="16" containingFunctionPresentation="Method 'CreateUniversity'">
             <startOffsets>
-              <option value="433" />
+              <option value="683" />
             </startOffsets>
             <endOffsets>
-              <option value="491" />
+              <option value="741" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="2" />
