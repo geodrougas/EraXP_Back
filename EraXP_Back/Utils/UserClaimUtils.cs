@@ -1,81 +1,83 @@
 using System.Buffers.Text;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
 using EraXP_Back.Models.Domain;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.IdentityModel.Tokens;
 
 namespace EraXP_Back.Utils;
 
 public class UserClaimUtils
 {
-    private const string HEADER = """{"alg":"HS512","typ":"JWT"}""";
-    private readonly string HEADER_BASE64;
-    private string _key;
-    private HMACSHA512 _hmacsha512;
-    private Encoding _encoding;
+    private readonly SymmetricSecurityKey _symmetricSecurityKey;
+    private readonly SigningCredentials _signingCredentials;
+    private readonly Encoding _encoding;
+    private readonly string _issuer;
     
-    public UserClaimUtils(string key, string encoding)
+    public UserClaimUtils(string key, string issuer, string encoding)
     {
         byte[] keyBytes = Convert.FromBase64String(key);
-        this._key = key;
-        this._hmacsha512 = new HMACSHA512(keyBytes); 
+        this._symmetricSecurityKey = new SymmetricSecurityKey(keyBytes);
+        this._signingCredentials = new SigningCredentials(_symmetricSecurityKey, SecurityAlgorithms.HmacSha512);
         this._encoding = Encoding.GetEncoding(encoding);
-        this.HEADER_BASE64 = StringToBase64(HEADER);
+        this._issuer = issuer;
     }
     
-    public string GenerateJsonSignature(UserClaims claims)
+    public string GenerateJsonSignature(UserClaims userClaims)
     {
-        string payload = JsonSerializer.Serialize(claims);
-        string headerBase64 = HEADER_BASE64;
-        string payloadBase64 = StringToBase64(payload);
-        string signatureContent = $"{headerBase64}.{payloadBase64}";
-        string signatureBase64 = ComputeSignature(signatureContent);
-        return $"{signatureContent}.{signatureBase64}";
+        List<Claim> claims = new List<Claim>();
+        
+        claims.Add(new Claim("sub", userClaims.Username));
+        claims.Add(new Claim("securityToken", userClaims.SecurityToken.ToString()));
+
+        ClaimsIdentity identity = new ClaimsIdentity(new[]
+        {
+            new Claim("Id", Guid.NewGuid().ToString()),
+            new Claim(JwtRegisteredClaimNames.Sub, userClaims.Username),
+            new Claim("securityToken", userClaims.SecurityToken.ToString()),
+            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+        });
+        var tokenDescriptor = new SecurityTokenDescriptor
+        {
+            Subject = identity,
+            Expires = DateTime.UtcNow.AddMinutes(5),
+            Issuer = _issuer,
+            Audience = _issuer,
+            SigningCredentials = _signingCredentials
+        };
+        JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
+        SecurityToken token = tokenHandler.CreateToken(tokenDescriptor);
+        string jwtToken = tokenHandler.WriteToken(token);
+        
+        return jwtToken;
     }
 
-    public bool ValidateSignature(string jwt)
+    public UserClaims GetClaims(IEnumerable<Claim> claims)
     {
-        string[] parts = jwt.Split(".");
+        string? username = null;
+        Guid? securityToken = null;
+        
+        foreach (var claim in claims)
+        {
+            switch (claim.Type)
+            {
+                case "sub":
+                    username = claim.Value;
+                    break;
+                case "securityToken":
+                    securityToken = Guid.Parse(claim.Value);
+                    break;
+            }
+        }
 
-        return ValidateSignature(parts);
-    }
+        if (username == null || securityToken == null)
+            throw new ArgumentException("Missing or invalid claims!");
+        
+        UserClaims? userClaims = new UserClaims(username, securityToken.Value);
 
-    public bool ValidateSignature(string[] jwtParts)
-    {
-        if (jwtParts.Length != 3)
-            return false;
-
-        string signatureContent = $"{jwtParts[0]}.{jwtParts[1]}";
-        return jwtParts[2] == ComputeSignature(signatureContent);
-    }
-
-    public UserClaims GetClaims(string token)
-    {
-        string[] parts = token.Split(".");
-
-        bool isValid = ValidateSignature(parts);
-
-        if (isValid)
-            throw new UnauthorizedAccessException("Invalid token signature!");
-
-        UserClaims? claims = JsonSerializer.Deserialize<UserClaims>(parts[1]);
-
-        if (claims == null)
-            throw new UnauthorizedAccessException("Unable to extract user claims!");
-
-        return claims;
-    }
-    
-    public string ComputeSignature(string content)
-    {
-        byte[] signatureBytes = _hmacsha512.ComputeHash(_encoding.GetBytes(content));
-        return Base64UrlTextEncoder.Encode(signatureBytes);
-    }
-    
-    public string StringToBase64(string text)
-    {
-        byte[] textBytes = _encoding.GetBytes(text);
-        return Base64UrlTextEncoder.Encode(textBytes);
+        return userClaims;
     }
 }
