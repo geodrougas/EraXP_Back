@@ -9,13 +9,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c8272286-64a4-442d-b946-b3d6a1d3738d" name="Changes" comment="* Renamed UserUtils.cs -&gt; UserClaimUtils.cs">
+      <change afterPath="$PROJECT_DIR$/EraXP_Back/Models/Dto/CredentialsDto.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/EraXP_Back/Models/Dto/UserDto.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/EraXP_Back/Repositories/IUserRepository.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/EraXP_Back/Utils/UserUtils.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.EraXP_Back/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.EraXP_Back/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/EraXP_Back/Controllers/V1/LoginController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/EraXP_Back/Controllers/V1/LoginController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/EraXP_Back/Controllers/V1/UniversityController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/EraXP_Back/Controllers/V1/UniversityController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EraXP_Back/EraXP_Back.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/EraXP_Back/EraXP_Back.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EraXP_Back/Models/Domain/UserClaims.cs" beforeDir="false" afterPath="$PROJECT_DIR$/EraXP_Back/Models/Domain/UserClaims.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EraXP_Back/Models/Database/User.cs" beforeDir="false" afterPath="$PROJECT_DIR$/EraXP_Back/Models/Database/User.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/EraXP_Back/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/EraXP_Back/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EraXP_Back/Utils/UserClaimUtils.cs" beforeDir="false" afterPath="$PROJECT_DIR$/EraXP_Back/Utils/UserClaimUtils.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,7 +31,7 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/1c19415d87024aa7ad91fd19f160a6a0cab0/39/31512e68/JwtBearerExtensions.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/43e48d5ef81641708ecf9919a3d4d51361800/ce/8e145c0b/DiagnosticListener.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/51a6ca55b3634359a58568e1af5026ad13800/a6/c13037e7/ClaimTypes.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/f1bb10e1f35f4b88a719d9dcc0f401ba1dea00/c8/237e77fa/ControllerBase.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/f1bb10e1f35f4b88a719d9dcc0f401ba1dea00/c8/237e77fa/ControllerBase.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/131cb0f4d351948e1376e67567f41227a11568eeea0439e18f260d5aaf86285/JwtPayload.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/359537e245b0afc067aad75b968d507f7410b245ce987ebf986c2a331683e16/JwtSecurityToken.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/563843912714eec5f526522d8ea4bfdfc6e4531193eaaa62c2d98844232/JwtRegisteredClaimNames.cs" root0="SKIP_HIGHLIGHTING" />
@@ -45,28 +47,28 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    ".NET Launch Settings Profile.EraXP_Back: http.executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;.NET Launch Settings Profile.EraXP_Back: http.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "rider.external.source.directories": [
-      "/home/coldhammer/.config/JetBrains/Rider2023.3/resharper-host/DecompilerCache",
-      "/home/coldhammer/.config/JetBrains/Rider2023.3/resharper-host/SourcesCache",
-      "/home/coldhammer/.local/share/Symbols/src"
+  &quot;keyToStringList&quot;: {
+    &quot;rider.external.source.directories&quot;: [
+      &quot;/home/coldhammer/.config/JetBrains/Rider2023.3/resharper-host/DecompilerCache&quot;,
+      &quot;/home/coldhammer/.config/JetBrains/Rider2023.3/resharper-host/SourcesCache&quot;,
+      &quot;/home/coldhammer/.local/share/Symbols/src&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected=".NET Launch Settings Profile.EraXP_Back: http">
     <configuration name="EraXP_Back: http" type="LaunchSettings" factoryName=".NET Launch Settings Profile">
       <option name="LAUNCH_PROFILE_PROJECT_FILE_PATH" value="$PROJECT_DIR$/EraXP_Back/EraXP_Back.csproj" />
@@ -139,6 +141,7 @@
       <workItem from="1714241138753" duration="6002000" />
       <workItem from="1715277180179" duration="9305000" />
       <workItem from="1715380241058" duration="7671000" />
+      <workItem from="1715435127000" duration="3212000" />
     </task>
     <task id="LOCAL-00001" summary="Added the domain models">
       <option name="closed" value="true" />
@@ -186,10 +189,10 @@
           <line>16</line>
           <properties documentPath="$PROJECT_DIR$/EraXP_Back/Controllers/V1/UniversityController.cs" initialLine="16" containingFunctionPresentation="Method 'CreateUniversity'">
             <startOffsets>
-              <option value="463" />
+              <option value="433" />
             </startOffsets>
             <endOffsets>
-              <option value="521" />
+              <option value="491" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="2" />

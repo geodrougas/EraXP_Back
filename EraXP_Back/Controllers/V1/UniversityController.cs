@@ -12,7 +12,7 @@ namespace EraXP_Back.Controllers.V1;
 public class UniversityController(UserClaimUtils claimUtils) : ControllerBase
 {
     [HttpGet]
-    public ActionResult<IEnumerable<WeatherForecast>> CreateUniversity()
+    public ActionResult CreateUniversity()
     {
         UserClaims userClaims = claimUtils.GetClaims(User.Claims);
         return Ok(userClaims.Username);
