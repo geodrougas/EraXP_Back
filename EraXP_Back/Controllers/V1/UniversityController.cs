@@ -40,6 +40,7 @@ public class UniversityController(
     }
 
     [HttpPost]
+    [Route("photo")]
     public async Task<ActionResult> CreateUniversityPhoto([FromQuery] Guid universityId, [FromBody] List<FormFile> image)
     {
         // Upload a file to a service or store somewhere?
@@ -64,8 +65,17 @@ public class UniversityController(
 
         return await GetMappedUniversities(user);
     }
+    
+    [HttpGet]
+    [Route("{university}")]
+    public async Task<ActionResult<UniversityDto>> GetAllForUniversity([FromRoute] Guid university)
+    {
+        throw new NotImplementedException();
+    }
+
 
     [HttpGet]
+    [Route("department")]
     public async Task<ActionResult<List<Department>>> GetDepartments([FromQuery] bool canGo)
     {
         if (!canGo)
@@ -82,12 +92,6 @@ public class UniversityController(
             return Forbid("You do not have the necessary roles to launch this request!");
 
         return await GetMappedDepartments(user);
-    }
-
-    [HttpGet]
-    public async Task<ActionResult<UniversityDto>> GetAllForUniversity([FromQuery] Guid university)
-    {
-        throw new NotImplementedException();
     }
 
     private async Task<ActionResult<List<University>>> GetAllUniversities()

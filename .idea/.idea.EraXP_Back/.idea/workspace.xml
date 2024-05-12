@@ -9,19 +9,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c8272286-64a4-442d-b946-b3d6a1d3738d" name="Changes" comment="* Created login api interface and create user interface">
-      <change afterPath="$PROJECT_DIR$/EraXP_Back/Models/Dto/DepartmentDto.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/EraXP_Back/Models/Dto/UniversityDto.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/EraXP_Back/Models/Dto/UniversityPhotoDto.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/EraXP_Back/Models/Dto/UniversityUserRatingsDto.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/EraXP_Back/Repositories/IUniversityRepository.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/EraXP_Back/Controllers/V1/UserController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.EraXP_Back/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.EraXP_Back/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EraXP_Back/Controllers/V1/LoginController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/EraXP_Back/Controllers/V1/LoginController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/EraXP_Back/Controllers/V1/UniversityController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/EraXP_Back/Controllers/V1/UniversityController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EraXP_Back/Models/Database/Roles.cs" beforeDir="false" afterPath="$PROJECT_DIR$/EraXP_Back/Models/Database/Role.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EraXP_Back/Models/Database/University.cs" beforeDir="false" afterPath="$PROJECT_DIR$/EraXP_Back/Models/Database/University.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EraXP_Back/Models/Database/User.cs" beforeDir="false" afterPath="$PROJECT_DIR$/EraXP_Back/Models/Database/User.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EraXP_Back/Models/Database/UserRoles.cs" beforeDir="false" afterPath="$PROJECT_DIR$/EraXP_Back/Models/Database/UserRole.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EraXP_Back/Models/Database/UserUniversityRating.cs" beforeDir="false" afterPath="$PROJECT_DIR$/EraXP_Back/Models/Database/UserUniversityRating.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EraXP_Back/Utils/UserUtils.cs" beforeDir="false" afterPath="$PROJECT_DIR$/EraXP_Back/Utils/UserUtils.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -146,6 +137,7 @@
       <workItem from="1715277180179" duration="9305000" />
       <workItem from="1715380241058" duration="7671000" />
       <workItem from="1715435127000" duration="7051000" />
+      <workItem from="1715527168384" duration="574000" />
     </task>
     <task id="LOCAL-00001" summary="Added the domain models">
       <option name="closed" value="true" />
