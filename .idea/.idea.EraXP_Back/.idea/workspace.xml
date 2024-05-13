@@ -8,11 +8,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c8272286-64a4-442d-b946-b3d6a1d3738d" name="Changes" comment="* Created login api interface and create user interface">
-      <change afterPath="$PROJECT_DIR$/EraXP_Back/Controllers/V1/UserController.cs" afterDir="false" />
+    <list default="true" id="c8272286-64a4-442d-b946-b3d6a1d3738d" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/EraXP_Back/Requirements.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.EraXP_Back/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.EraXP_Back/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EraXP_Back/Controllers/V1/LoginController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/EraXP_Back/Controllers/V1/LoginController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EraXP_Back/Controllers/V1/UniversityController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/EraXP_Back/Controllers/V1/UniversityController.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,6 +30,10 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/563843912714eec5f526522d8ea4bfdfc6e4531193eaaa62c2d98844232/JwtRegisteredClaimNames.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/72f3b2328cb58fc95d3e64e0c4d29183542330a9f614c3f5f02efafd87f4619/SymmetricSecurityKey.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/c6b0aee05aa9df03e1ed54a65eb87d45c2413617289c60e29d7fecd4ff73/SecurityKey.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///home/coldhammer/Documents/Projects/EraXP_Back/EraXP_Back/Controllers/V1/LoginController.cs" root0="SKIP_HIGHLIGHTING" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
   </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="ProjectColorInfo">{
@@ -137,7 +139,8 @@
       <workItem from="1715277180179" duration="9305000" />
       <workItem from="1715380241058" duration="7671000" />
       <workItem from="1715435127000" duration="7051000" />
-      <workItem from="1715527168384" duration="574000" />
+      <workItem from="1715527168384" duration="1000000" />
+      <workItem from="1715625885342" duration="2954000" />
     </task>
     <task id="LOCAL-00001" summary="Added the domain models">
       <option name="closed" value="true" />
@@ -171,7 +174,15 @@
       <option name="project" value="LOCAL" />
       <updated>1715438366517</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="* Added appropriate routing to the functions">
+      <option name="closed" value="true" />
+      <created>1715527805775</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1715527805775</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -184,7 +195,8 @@
     <MESSAGE value="* Generated the UserClaimUtils.cs class that handles the JWT checks&#10;&#10;* Moved stuff around" />
     <MESSAGE value="* Renamed UserUtils.cs -&gt; UserClaimUtils.cs" />
     <MESSAGE value="* Created login api interface and create user interface" />
-    <option name="LAST_COMMIT_MESSAGE" value="* Created login api interface and create user interface" />
+    <MESSAGE value="* Added appropriate routing to the functions" />
+    <option name="LAST_COMMIT_MESSAGE" value="* Added appropriate routing to the functions" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
