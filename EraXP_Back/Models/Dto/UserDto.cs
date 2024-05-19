@@ -6,6 +6,5 @@ public record UserDto (
     string PasswordRepeat,
     string Email,
     Guid UniversityId,
-    Guid DepartmentId,
-    bool IsProfessor
+    Guid DepartmentId
 );

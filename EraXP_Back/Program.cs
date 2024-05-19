@@ -1,4 +1,5 @@
 using EraXP_Back.Utils;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -56,11 +57,16 @@ if (key == null)
 
 string jwtIssuer = userClaimUtilsSection["issuer"] ?? "EraXP_Service";
 
+int jwtLifeSpan;
+
+if (!int.TryParse(userClaimUtilsSection["jwtLifeSpan"], out jwtLifeSpan))
+    jwtLifeSpan = 1440;
+
 builder.Services.AddSingleton<UserClaimUtils>(it =>
 {
     string? encoding = userClaimUtilsSection["encoding"] ?? "UTF-8";
 
-    return new UserClaimUtils(key, jwtIssuer, encoding);
+    return new UserClaimUtils(key, jwtIssuer, encoding, TimeSpan.FromMinutes(jwtLifeSpan));
 });
 #endregion UserClaims
 
@@ -69,9 +75,22 @@ builder.Services.AddSingleton<UserUtils>();
 builder.Services
     .AddAuthentication(options =>
     {
-            options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-            options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+            options.DefaultAuthenticateScheme = "Multiple_schemes";
+            options.DefaultChallengeScheme = "Multiple_schemes";
+            options.DefaultScheme = "Multiple_schemes";
+    })
+    .AddPolicyScheme("Multiple_schemes", "Multiple Schemes", options =>
+    {
+        options.ForwardDefaultSelector = context =>
+        {
+            string?[]? authorizationHeader = context.Request.Headers.Authorization;
+
+            if (authorizationHeader != null
+                && authorizationHeader.Any(m => m != null && m.TrimStart().StartsWith("bearer", StringComparison.CurrentCultureIgnoreCase)))
+                return JwtBearerDefaults.AuthenticationScheme;
+
+            return CookieAuthenticationDefaults.AuthenticationScheme;
+        };
     })
     .AddJwtBearer(options =>
         {
@@ -85,9 +104,9 @@ builder.Services
                 ValidAudience = jwtIssuer,
                 IssuerSigningKey = new SymmetricSecurityKey(Convert.FromBase64String(key))
             };
-            options.MapInboundClaims = false;
         }
-    );
+    )
+    .AddCookie();
 
 builder.Services.AddAuthorization();
 

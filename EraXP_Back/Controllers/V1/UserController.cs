@@ -28,20 +28,30 @@ public class UserController(
         if (userDto.Password.Length < UserUtils.MIN_PASSWORD_LENGTH)
             return $"Your password's length must be greater than {UserUtils.MIN_PASSWORD_LENGTH}!";
 
+        Guid securityToken = Guid.NewGuid();
+        Guid concurrencyToken = Guid.NewGuid();
+        
+        string password = userUtils.CreatePassword(securityToken, userDto.Password, userDto.PasswordRepeat);
+        
         User user = new User(
+            Guid.NewGuid(),
             userDto.Username,
-            userDto.Username.ToUpper(),
+            password,
+            userDto.Username.ToUpperInvariant(),
             userDto.Email,
-            userDto.Email.ToUpper(),
-            userDto.UniversityId, userDto.DepartmentId
+            userDto.Email.ToUpperInvariant(),
+            userDto.UniversityId, 
+            userDto.DepartmentId,
+            securityToken,
+            concurrencyToken,
+            false,
+            null
         );
-
-        userUtils.CreatePassword(user, userDto.Password, userDto.PasswordRepeat);
-
-        user.ConcurrencyStamp = Guid.NewGuid();
 
         await userRepository.Save(user);
 
+        // save user roles
+        
         return Ok();
     }
 }

@@ -9,8 +9,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c8272286-64a4-442d-b946-b3d6a1d3738d" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/EraXP_Back/Requirements.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/EraXP_Back/Models/Domain/Authority.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/EraXP_Back/Models/Domain/Enum/EAuthorityType.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/EraXP_Back/Models/Domain/Enum/EAuthorizationMethod.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.EraXP_Back/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.EraXP_Back/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EraXP_Back/Controllers/V1/LoginController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/EraXP_Back/Controllers/V1/LoginController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EraXP_Back/Controllers/V1/UniversityController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/EraXP_Back/Controllers/V1/UniversityController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EraXP_Back/Controllers/V1/UserController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/EraXP_Back/Controllers/V1/UserController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EraXP_Back/Models/Database/User.cs" beforeDir="false" afterPath="$PROJECT_DIR$/EraXP_Back/Models/Database/User.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EraXP_Back/Models/Domain/UserClaims.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EraXP_Back/Models/Dto/CredentialsDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/EraXP_Back/Models/Dto/CredentialsDto.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EraXP_Back/Models/Dto/UserDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/EraXP_Back/Models/Dto/UserDto.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EraXP_Back/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/EraXP_Back/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EraXP_Back/Repositories/IUserRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/EraXP_Back/Repositories/IUserRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EraXP_Back/Utils/UserClaimUtils.cs" beforeDir="false" afterPath="$PROJECT_DIR$/EraXP_Back/Utils/UserClaimUtils.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EraXP_Back/Utils/UserUtils.cs" beforeDir="false" afterPath="$PROJECT_DIR$/EraXP_Back/Utils/UserUtils.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,13 +37,31 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/1c19415d87024aa7ad91fd19f160a6a0cab0/39/31512e68/JwtBearerExtensions.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/43e48d5ef81641708ecf9919a3d4d51361800/ce/8e145c0b/DiagnosticListener.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/51a6ca55b3634359a58568e1af5026ad13800/a6/c13037e7/ClaimTypes.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/854060075cf34b92aae74d5d941038eafe00/36/2c946acc/StringValues.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/c10bc0802b674222ac52e0f05b103c8621400/8a/76ab7eba/AuthenticationBuilder.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/dc3f84b0124c4b49ad576588293f25e0c600/94/445bcc31/IHeaderDictionary.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/f1bb10e1f35f4b88a719d9dcc0f401ba1dea00/c8/237e77fa/ControllerBase.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/131cb0f4d351948e1376e67567f41227a11568eeea0439e18f260d5aaf86285/JwtPayload.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/359537e245b0afc067aad75b968d507f7410b245ce987ebf986c2a331683e16/JwtSecurityToken.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/563843912714eec5f526522d8ea4bfdfc6e4531193eaaa62c2d98844232/JwtRegisteredClaimNames.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/72f3b2328cb58fc95d3e64e0c4d29183542330a9f614c3f5f02efafd87f4619/SymmetricSecurityKey.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/c6b0aee05aa9df03e1ed54a65eb87d45c2413617289c60e29d7fecd4ff73/SecurityKey.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///home/coldhammer/Documents/Projects/EraXP_Back/EraXP_Back/Controllers/V1/LoginController.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/EraXP_Back/Controllers/V1/LoginController.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/EraXP_Back/Controllers/V1/UniversityController.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/EraXP_Back/Controllers/V1/UserController.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/EraXP_Back/Models/Database/Course.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/EraXP_Back/Models/Database/CourseToCourse.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/EraXP_Back/Models/Database/University.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/EraXP_Back/Models/Database/User.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/EraXP_Back/Models/Database/UserUniversityRating.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/EraXP_Back/Models/Domain/UserClaims.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/EraXP_Back/Models/Dto/DepartmentDto.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/EraXP_Back/Models/Dto/UniversityPhotoDto.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/EraXP_Back/Models/Dto/UniversityUserRatingsDto.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/EraXP_Back/Program.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/EraXP_Back/Repositories/IUniversityRepository.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/EraXP_Back/Repositories/IUserRepository.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/EraXP_Back/Utils/UserUtils.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -140,7 +171,8 @@
       <workItem from="1715380241058" duration="7671000" />
       <workItem from="1715435127000" duration="7051000" />
       <workItem from="1715527168384" duration="1000000" />
-      <workItem from="1715625885342" duration="2954000" />
+      <workItem from="1715625885342" duration="3013000" />
+      <workItem from="1716103526117" duration="9702000" />
     </task>
     <task id="LOCAL-00001" summary="Added the domain models">
       <option name="closed" value="true" />
@@ -202,43 +234,30 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/EraXP_Back/Controllers/V1/UniversityController.cs</url>
-          <line>24</line>
-          <properties documentPath="$PROJECT_DIR$/EraXP_Back/Controllers/V1/UniversityController.cs" initialLine="16" containingFunctionPresentation="Method 'CreateUniversity'">
-            <startOffsets>
-              <option value="683" />
-            </startOffsets>
-            <endOffsets>
-              <option value="741" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/EraXP_Back/Utils/UserClaimUtils.cs</url>
-          <line>64</line>
-          <properties documentPath="$PROJECT_DIR$/EraXP_Back/Utils/UserClaimUtils.cs" initialLine="52" containingFunctionPresentation="Method 'GetClaims'">
-            <startOffsets>
-              <option value="2343" />
-            </startOffsets>
-            <endOffsets>
-              <option value="2362" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="3" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/EraXP_Back/Utils/UserClaimUtils.cs</url>
-          <line>75</line>
+          <line>85</line>
           <properties documentPath="$PROJECT_DIR$/EraXP_Back/Utils/UserClaimUtils.cs" initialLine="63" containingFunctionPresentation="Method 'GetClaims'">
             <startOffsets>
-              <option value="2635" />
+              <option value="3002" />
             </startOffsets>
             <endOffsets>
-              <option value="2681" />
+              <option value="3089" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="4" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/EraXP_Back/Controllers/V1/LoginController.cs</url>
+          <line>34</line>
+          <properties documentPath="$PROJECT_DIR$/EraXP_Back/Controllers/V1/LoginController.cs" initialLine="20" containingFunctionPresentation="Method 'Login'">
+            <startOffsets>
+              <option value="915" />
+            </startOffsets>
+            <endOffsets>
+              <option value="1001" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="5" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using EraXP_Back.Models;
 using EraXP_Back.Models.Database;
 using EraXP_Back.Models.Domain;
@@ -6,32 +7,34 @@ using EraXP_Back.Repositories;
 using EraXP_Back.Utils;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authorization.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EraXP_Back.Controllers.V1;
 
 [Route("/api/v1/[Controller]")]
 [ApiController]
-[Authorize]
 public class UniversityController(
     UserClaimUtils claimUtils,
     IUserRepository userRepository,
     IUniversityRepository universityRepository
 ) : ControllerBase
 {
+    private Authority? _authority;
+    private Authority? Authority => _authority ??= claimUtils.GetAuthority(User);
+    
     [HttpPost]
+    [Authorize(Roles = "Professor")]
     public async Task<ActionResult> CreateUniversity([FromBody] UniversityDto dto)
     {
-        UserClaims userClaims = claimUtils.GetClaims(User.Claims);
-        User? user = await userRepository.GetUserWithRoles(userClaims.Username, userClaims.SecurityToken);
+        if (Authority == null)
+            return BadRequest("You must be logged in to access this resource!");
+        
+        User? user = await userRepository.GetUserWithRoles(Guid.Parse(Authority.Id), Guid.Parse(Authority.Key));
 
         if (user == null)
             return Unauthorized("This token is invalidated, please log in again and retry!");
-
-        Role? professorRole = user.UserRoles.FirstOrDefault(m => m.Name == "Professor");
-        if (professorRole == null)
-            return Forbid("You do not have the necessary roles to launch this request!");
-
+        
         University university = new University(dto.Name, dto.ThumbnailUrl, dto.Information);
 
         await universityRepository.Save(university);
@@ -52,9 +55,14 @@ public class UniversityController(
     {
         if (!canGo)
             return await GetAllUniversities();
+
+        if (Authority == null)
+            return Unauthorized("You need to login to view this page!");
+
+        if (!Authority.Roles.Contains("student"))
+            return Forbid("Only students can view this page!");
         
-        UserClaims userClaims = claimUtils.GetClaims(User.Claims);
-        User? user = await userRepository.GetUserWithRoles(userClaims.Username, userClaims.SecurityToken);
+        User? user = await userRepository.GetUserWithRoles(Guid.Parse(Authority.Id), Guid.Parse(Authority.Key));
 
         if (user == null)
             return Unauthorized("This token is invalidated, please log in again and retry!");
@@ -80,9 +88,14 @@ public class UniversityController(
     {
         if (!canGo)
             return await GetAllDepartments();
-        
-        UserClaims userClaims = claimUtils.GetClaims(User.Claims);
-        User? user = await userRepository.GetUserWithRoles(userClaims.Username, userClaims.SecurityToken);
+ 
+        if (Authority == null)
+            return Unauthorized("You need to login to view this page!");
+
+        if (!Authority.Roles.Contains("student"))
+            return Forbid("Only students can view this page!");
+               
+        User? user = await userRepository.GetUserWithRoles(Guid.Parse(Authority.Id), Guid.Parse(Authority.Key));
 
         if (user == null)
             return Unauthorized("This token is invalidated, please log in again and retry!");

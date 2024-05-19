@@ -10,23 +10,21 @@ public class UserUtils()
     public const int MIN_PASSWORD_LENGTH = 10;
     public bool ValidatePassword(User user, string password)
     {
-        return user.Base64HashedPassword == GetHashedPasswordAsBase64(password, user.SecurityStamp!.Value);
+        return user.Base64HashedPassword == GetHashedPasswordAsBase64(password, user.SecurityStamp);
     }
 
-    public string? CreatePassword(User user, string password, string password2)
+    public string CreatePassword(Guid securityStamp, string password, string password2)
     {
         if (password != password2)
-            return "Password mismatch!";
+            throw new ArgumentException("The passwords provided did not match!");
 
         if (password.Length < MIN_PASSWORD_LENGTH)
-            return $"Your password's length must be greater than {MIN_PASSWORD_LENGTH}!";
+            throw new ArgumentException("The password had invalid length!");
 
-        user.SecurityStamp = Guid.NewGuid();
+        securityStamp = Guid.NewGuid();
 
-        user.Base64HashedPassword = GetHashedPasswordAsBase64(
-            password, user.SecurityStamp.Value);
-
-        return null;
+        return GetHashedPasswordAsBase64(
+            password, securityStamp);
     }
 
     public string GetHashedPasswordAsBase64(string password, Guid securityStamp)
