@@ -11,7 +11,7 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace EraXP_Back.Utils;
 
-public class UserClaimUtils
+public class ClaimUtils
 {
     private readonly SymmetricSecurityKey _symmetricSecurityKey;
     private readonly SigningCredentials _signingCredentials;
@@ -19,7 +19,7 @@ public class UserClaimUtils
     private readonly string _issuer;
     public TimeSpan AuthLifetime { get; }
 
-    public UserClaimUtils(string key, string issuer, string encoding, TimeSpan authLifetime)
+    public ClaimUtils(string key, string issuer, string encoding, TimeSpan authLifetime)
     {
         byte[] keyBytes = Convert.FromBase64String(key);
         this._symmetricSecurityKey = new SymmetricSecurityKey(keyBytes);

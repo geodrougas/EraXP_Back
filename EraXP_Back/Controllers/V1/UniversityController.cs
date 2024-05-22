@@ -1,13 +1,10 @@
-using System.Diagnostics;
 using EraXP_Back.Models;
 using EraXP_Back.Models.Database;
 using EraXP_Back.Models.Domain;
 using EraXP_Back.Models.Dto;
-using EraXP_Back.Repositories;
+using EraXP_Back.Persistence;
 using EraXP_Back.Utils;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Authorization.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EraXP_Back.Controllers.V1;
@@ -15,29 +12,31 @@ namespace EraXP_Back.Controllers.V1;
 [Route("/api/v1/[Controller]")]
 [ApiController]
 public class UniversityController(
-    UserClaimUtils claimUtils,
-    IUserRepository userRepository,
-    IUniversityRepository universityRepository
+    IDbConnectionFactory connectionFactory,
+    AuthorityUtils authorityUtils,
+    ClaimUtils claimUtils
 ) : ControllerBase
 {
     private Authority? _authority;
     private Authority? Authority => _authority ??= claimUtils.GetAuthority(User);
     
     [HttpPost]
-    [Authorize(Roles = "Professor")]
+    [Authorize(Roles = "professor")]
     public async Task<ActionResult> CreateUniversity([FromBody] UniversityDto dto)
     {
-        if (Authority == null)
-            return BadRequest("You must be logged in to access this resource!");
-        
-        User? user = await userRepository.GetUserWithRoles(Guid.Parse(Authority.Id), Guid.Parse(Authority.Key));
+        using (IDbConnection connection = await connectionFactory.ConnectAsync())
+        {
+            Result<User> result = await authorityUtils.ValidateAuthority(connection, Authority);
 
-        if (user == null)
-            return Unauthorized("This token is invalidated, please log in again and retry!");
-        
-        University university = new University(dto.Name, dto.ThumbnailUrl, dto.Information);
+            if (!result.IsSuccess)
+            {
+                return StatusCode(result.Code!.Value, result.Error!);
+            }
+            
+            University university = new University(dto.Name, dto.ThumbnailUrl, dto.Information);
 
-        await universityRepository.Save(university);
+            await connection.Insert(university);
+        }
         
         return Ok();
     }
@@ -51,90 +50,130 @@ public class UniversityController(
     }
 
     [HttpGet]
-    public async Task<ActionResult<List<University>>> GetUniversities([FromQuery] bool canGo)
+    [Route("available")]
+    [Authorize(Roles = "student")]
+    public async Task<ActionResult<IEnumerable<UniversityDto>>> GetUniversities([FromQuery] bool canGo)
     {
-        if (!canGo)
-            return await GetAllUniversities();
+        List<University> universities;
+        using (IDbConnection connection = await connectionFactory.ConnectAsync())
+        {
+            Result<User> result = await authorityUtils.ValidateAuthority(connection, Authority);
 
-        if (Authority == null)
-            return Unauthorized("You need to login to view this page!");
+            if (!result.IsSuccess)
+            {
+                return StatusCode(result.Code!.Value, result.Error!);
+            }
 
-        if (!Authority.Roles.Contains("student"))
-            return Forbid("Only students can view this page!");
+            User user = result.Entity!;
+            
+            universities = await connection.UniversityRepository.GetAvailableUniversities(user.DepartmentId);
+        }
+
+        return Ok(universities.Select(m => UniversityDto.From(m)));
+    }
+    
+    [HttpGet]
+    [Route("all")]
+    public async Task<ActionResult<IEnumerable<UniversityDto>>> GetAllUniversities()
+    {
+        List<University> allUniversities;
         
-        User? user = await userRepository.GetUserWithRoles(Guid.Parse(Authority.Id), Guid.Parse(Authority.Key));
+        using (IDbConnection connection = await connectionFactory.ConnectAsync())
+        {
+             allUniversities = await connection.UniversityRepository.GetAll();
+        }
 
-        if (user == null)
-            return Unauthorized("This token is invalidated, please log in again and retry!");
-
-        Role? studentRole = user.UserRoles.FirstOrDefault(m => m.Name == "Student");
-        if (studentRole == null)
-            return Forbid("You do not have the necessary roles to launch this request!");
-
-        return await GetMappedUniversities(user);
+        return Ok(allUniversities.Select(m => UniversityDto.From(m)));
     }
     
     [HttpGet]
-    [Route("{university}")]
-    public async Task<ActionResult<UniversityDto>> GetAllForUniversity([FromRoute] Guid university)
+    [Route("{universityId}")]
+    public async Task<ActionResult<UniversityDto>> GetUniversity([FromRoute] Guid universityId)
     {
-        throw new NotImplementedException();
+        using (IDbConnection connection = await connectionFactory.ConnectAsync())
+        {
+            return await GetUniversityConnected(connection, universityId);
+        }
+    }
+
+    [HttpGet]
+    [Route("{universityId}/complete")]
+    public async Task<ActionResult<UniversityDto>> GetAllForUniversity([FromRoute] Guid universityId)
+    {
+        using (IDbConnection connection = await connectionFactory.ConnectAsync())
+        {
+            return await GetAllForUniversityConnected(connection, universityId);
+        }
     }
 
 
     [HttpGet]
-    [Route("department")]
-    public async Task<ActionResult<List<Department>>> GetDepartments([FromQuery] bool canGo)
+    [Route("my")]
+    public async Task<ActionResult<UniversityDto>> GetMyUniversity()
     {
-        if (!canGo)
-            return await GetAllDepartments();
- 
-        if (Authority == null)
-            return Unauthorized("You need to login to view this page!");
+        using (IDbConnection connection = await connectionFactory.ConnectAsync())
+        {
+            Result<User> result = await authorityUtils.ValidateAuthority(connection, Authority);
 
-        if (!Authority.Roles.Contains("student"))
-            return Forbid("Only students can view this page!");
-               
-        User? user = await userRepository.GetUserWithRoles(Guid.Parse(Authority.Id), Guid.Parse(Authority.Key));
+            if (!result.IsSuccess)
+            {
+                return StatusCode(result.Code!.Value, result.Error!);
+            }
 
-        if (user == null)
-            return Unauthorized("This token is invalidated, please log in again and retry!");
+            User user = result.Entity!;
 
-        Role? studentRole = user.UserRoles.FirstOrDefault(m => m.Name == "Student");
-        if (studentRole == null)
-            return Forbid("You do not have the necessary roles to launch this request!");
-
-        return await GetMappedDepartments(user);
-    }
-
-    private async Task<ActionResult<List<University>>> GetAllUniversities()
-    {
-        List<University> allUniversities = await universityRepository.GetAll();
-
-        return Ok(allUniversities);
-    }
-
-    private async Task<ActionResult<List<University>>> GetMappedUniversities(User user)
-    {
-        List<Guid> departmentGuids = await universityRepository.GetMappedDepartmentGuids(user.DepartmentId);
-
-        List<University> universities = await universityRepository.GetUniversityFromDepartmentIds(departmentGuids);
-
-        return Ok(universities);
-    }
-
-    private async Task<ActionResult<List<Department>>> GetMappedDepartments(User user)
-    {
-        List<Guid> departmentGuids = await universityRepository.GetMappedDepartmentGuids(user.DepartmentId);
-        List<Department> departments = await universityRepository.GetDepartmentsByIds(departmentGuids);
-
-        return Ok(departments);
+            return await GetUniversityConnected(connection, user.UniversityId);
+        }
     }
     
-    private async Task<ActionResult<List<Department>>> GetAllDepartments()
+    [HttpGet]
+    [Route("my/complete")]
+    public async Task<ActionResult<UniversityDto>> GetMyUniversityComplete()
     {
-        List<Department> departments = await universityRepository.GetAllDepartments();
+        University? university;
+        
+        using (IDbConnection connection = await connectionFactory.ConnectAsync())
+        {
+            Result<User> result = await authorityUtils.ValidateAuthority(connection, Authority);
 
-        return Ok(departments);
+            if (!result.IsSuccess)
+            {
+                return StatusCode(result.Code!.Value, result.Error!);
+            }
+
+            User user = result.Entity!;
+
+            return await GetAllForUniversityConnected(connection, user.UniversityId);
+        }
+    }
+
+    private async Task<ActionResult<UniversityDto>> GetAllForUniversityConnected(IDbConnection connection, Guid universityId)
+    {
+        University? university;
+        
+        university = await connection.UniversityRepository.Get(id: universityId);
+
+        if (university == null)
+            return NotFound();
+        
+        // Todo read complete data for university!
+
+        UniversityDto? universityDto = UniversityDto.From(university);
+        
+        return Ok(universityDto);
+    }
+
+    private async Task<ActionResult<UniversityDto>> GetUniversityConnected(IDbConnection connection, Guid universityId)
+    {
+        University? university;
+        
+        university = await connection.UniversityRepository.Get(id: universityId);
+
+        if (university == null)
+            return NotFound();
+        
+        UniversityDto? universityDto = UniversityDto.From(university);
+        
+        return Ok(universityDto);
     }
 }

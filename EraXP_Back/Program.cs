@@ -62,11 +62,11 @@ int jwtLifeSpan;
 if (!int.TryParse(userClaimUtilsSection["jwtLifeSpan"], out jwtLifeSpan))
     jwtLifeSpan = 1440;
 
-builder.Services.AddSingleton<UserClaimUtils>(it =>
+builder.Services.AddSingleton<ClaimUtils>(it =>
 {
     string? encoding = userClaimUtilsSection["encoding"] ?? "UTF-8";
 
-    return new UserClaimUtils(key, jwtIssuer, encoding, TimeSpan.FromMinutes(jwtLifeSpan));
+    return new ClaimUtils(key, jwtIssuer, encoding, TimeSpan.FromMinutes(jwtLifeSpan));
 });
 #endregion UserClaims
 

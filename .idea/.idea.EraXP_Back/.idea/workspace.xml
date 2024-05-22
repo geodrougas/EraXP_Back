@@ -8,22 +8,41 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c8272286-64a4-442d-b946-b3d6a1d3738d" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/EraXP_Back/Models/Domain/Authority.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/EraXP_Back/Models/Domain/Enum/EAuthorityType.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/EraXP_Back/Models/Domain/Enum/EAuthorizationMethod.cs" afterDir="false" />
+    <list default="true" id="c8272286-64a4-442d-b946-b3d6a1d3738d" name="Changes" comment="* Made some fixes, created the db connection files and some interfaces relative to that.&#10;* Begun the implementation of the postgresdb">
+      <change afterPath="$PROJECT_DIR$/EraXP_Back/Controllers/V1/DepartmentController.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/EraXP_Back/Persistence/CrudHandlers/ICrudHandlers.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/EraXP_Back/Persistence/IDbConnection.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/EraXP_Back/Persistence/IDbConnectionFactory.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/EraXP_Back/Persistence/IDbCrud.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/EraXP_Back/Persistence/IDbExec.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/EraXP_Back/Persistence/IDbRepositories.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/EraXP_Back/Persistence/IDbTransaction.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/EraXP_Back/Persistence/Model/DbParam.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/EraXP_Back/Persistence/Repositories/ICourseRepository.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/EraXP_Back/Persistence/Repositories/IDepartmentRepository.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/EraXP_Back/PostgresQL/DbConnection.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/EraXP_Back/PostgresQL/DbConnectionFactory.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/EraXP_Back/PostgresQL/DbCrud.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/EraXP_Back/PostgresQL/DbExec.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/EraXP_Back/PostgresQL/DbRepositories.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/EraXP_Back/PostgresQL/DbTransaction.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/EraXP_Back/PostgresQL/Repositories/CourseRepository.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/EraXP_Back/PostgresQL/Repositories/DepartmentRepository.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/EraXP_Back/PostgresQL/Repositories/UniversityRepository.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/EraXP_Back/PostgresQL/Repositories/UserRepository.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/EraXP_Back/Utils/AuthorityUtils.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/EraXP_Back/Utils/Result.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.EraXP_Back/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.EraXP_Back/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/EraXP_Back/Controllers/V1/LoginController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/EraXP_Back/Controllers/V1/LoginController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/EraXP_Back/Controllers/V1/UniversityController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/EraXP_Back/Controllers/V1/UniversityController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/EraXP_Back/Controllers/V1/UserController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/EraXP_Back/Controllers/V1/UserController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EraXP_Back/Models/Database/User.cs" beforeDir="false" afterPath="$PROJECT_DIR$/EraXP_Back/Models/Database/User.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EraXP_Back/Models/Domain/UserClaims.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/EraXP_Back/Models/Dto/CredentialsDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/EraXP_Back/Models/Dto/CredentialsDto.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EraXP_Back/Models/Dto/UserDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/EraXP_Back/Models/Dto/UserDto.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EraXP_Back/EraXP_Back.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/EraXP_Back/EraXP_Back.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EraXP_Back/Models/Dto/DepartmentDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/EraXP_Back/Models/Dto/DepartmentDto.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EraXP_Back/Models/Dto/UniversityDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/EraXP_Back/Models/Dto/UniversityDto.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/EraXP_Back/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/EraXP_Back/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EraXP_Back/Repositories/IUserRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/EraXP_Back/Repositories/IUserRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EraXP_Back/Utils/UserClaimUtils.cs" beforeDir="false" afterPath="$PROJECT_DIR$/EraXP_Back/Utils/UserClaimUtils.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EraXP_Back/Utils/UserUtils.cs" beforeDir="false" afterPath="$PROJECT_DIR$/EraXP_Back/Utils/UserUtils.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EraXP_Back/Repositories/IUniversityRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/EraXP_Back/Persistence/Repositories/IUniversityRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EraXP_Back/Repositories/IUserRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/EraXP_Back/Persistence/Repositories/IUserRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EraXP_Back/Utils/UserClaimUtils.cs" beforeDir="false" afterPath="$PROJECT_DIR$/EraXP_Back/Utils/ClaimUtils.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -172,7 +191,8 @@
       <workItem from="1715435127000" duration="7051000" />
       <workItem from="1715527168384" duration="1000000" />
       <workItem from="1715625885342" duration="3013000" />
-      <workItem from="1716103526117" duration="9702000" />
+      <workItem from="1716103526117" duration="9761000" />
+      <workItem from="1716392272654" duration="11116000" />
     </task>
     <task id="LOCAL-00001" summary="Added the domain models">
       <option name="closed" value="true" />
@@ -214,7 +234,15 @@
       <option name="project" value="LOCAL" />
       <updated>1715527805775</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="* Added cookie authentication and form submit on login">
+      <option name="closed" value="true" />
+      <created>1716125568153</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1716125568153</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -228,36 +256,25 @@
     <MESSAGE value="* Renamed UserUtils.cs -&gt; UserClaimUtils.cs" />
     <MESSAGE value="* Created login api interface and create user interface" />
     <MESSAGE value="* Added appropriate routing to the functions" />
-    <option name="LAST_COMMIT_MESSAGE" value="* Added appropriate routing to the functions" />
+    <MESSAGE value="* Added cookie authentication and form submit on login" />
+    <MESSAGE value="* Made some fixes, created the db connection files and some interfaces relative to that.&#10;* Begun the implementation of the postgresdb" />
+    <option name="LAST_COMMIT_MESSAGE" value="* Made some fixes, created the db connection files and some interfaces relative to that.&#10;* Begun the implementation of the postgresdb" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/EraXP_Back/Utils/UserClaimUtils.cs</url>
+          <url>file://$PROJECT_DIR$/EraXP_Back/Utils/ClaimUtils.cs</url>
           <line>85</line>
           <properties documentPath="$PROJECT_DIR$/EraXP_Back/Utils/UserClaimUtils.cs" initialLine="63" containingFunctionPresentation="Method 'GetClaims'">
             <startOffsets>
-              <option value="3002" />
+              <option value="2994" />
             </startOffsets>
             <endOffsets>
-              <option value="3089" />
+              <option value="3081" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="4" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/EraXP_Back/Controllers/V1/LoginController.cs</url>
-          <line>34</line>
-          <properties documentPath="$PROJECT_DIR$/EraXP_Back/Controllers/V1/LoginController.cs" initialLine="20" containingFunctionPresentation="Method 'Login'">
-            <startOffsets>
-              <option value="915" />
-            </startOffsets>
-            <endOffsets>
-              <option value="1001" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="5" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
