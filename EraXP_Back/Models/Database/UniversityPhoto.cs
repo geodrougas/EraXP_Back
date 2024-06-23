@@ -1,13 +1,8 @@
-namespace EraXP_Back.Models;
+namespace EraXP_Back.Models.Database;
 
-public class UniversityPhoto
-{
-    public Guid UniversityId { get; set; }
-    public string ImageUrl { get; set; }
-
-    public UniversityPhoto(Guid universityId, string imageUrl)
-    {
-        UniversityId = universityId;
-        ImageUrl = imageUrl;
-    }
-}
+public record UniversityPhoto (
+    Guid Id,
+    Guid UniversityId,
+    Guid? PhotoId,
+    string? Uri
+);

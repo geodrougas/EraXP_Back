@@ -24,33 +24,12 @@ public class DepartmentController(
     public async Task<ActionResult<IEnumerable<DepartmentDto>>> GetAllDepartments()
     {
         List<Department> departments;
-        
-        using (IDbConnection connection = await connectionFactory.ConnectAsync()) {
-             departments = await connection.DepartmentRepository.GetAllDepartments();
+
+        await using (IDbConnection connection = await connectionFactory.ConnectAsync()) {
+             departments = await connection.DepartmentRepository.Get();
         }
         
-        return Ok(departments.Select(DepartmentDto.From));
-    }
-    
-    [HttpGet]
-    [Route("available")]
-    [Authorize(Roles = "student")]
-    public async Task<ActionResult<List<DepartmentDto>>> GetMappedDepartments()
-    {
-        List<Department> departments;
-        using (IDbConnection connection = await connectionFactory.ConnectAsync())
-        {
-            Result<User> result = await authorityUtils.ValidateAuthority(connection, Authority);
-
-            if (!result.IsSuccess)
-                return StatusCode(result.Code!.Value, result.Error!);
-
-            User user = result.Entity!;
-            
-            departments = await connection.DepartmentRepository.GetMappedDepartments(user.DepartmentId);
-        }
-
-        return Ok(departments.Select(DepartmentDto.From));
+        return Ok(departments.Select(m => DepartmentDto.From(m)));
     }
 
     [HttpGet]
@@ -59,35 +38,12 @@ public class DepartmentController(
     {
         using (IDbConnection connection = await connectionFactory.ConnectAsync())
         {
-            return await GetDepartmentById(departmentId);
+            var department = (await connection.DepartmentRepository.Get(id: departmentId)).FirstOrDefault();
+
+            if (department == null)
+                return NotFound();
+
+            return Ok(DepartmentDto.From(department));
         }
-    }
-
-    [HttpGet]
-    [Authorize("student,professor")]
-    [Route("my")]
-    public async Task<ActionResult<DepartmentDto>> GetMyDepartment()
-    {
-        using (IDbConnection connection = await connectionFactory.ConnectAsync())
-        {
-            Result<User> result = await authorityUtils.ValidateAuthority(connection, Authority);
-
-            if (!result.IsSuccess)
-                return StatusCode(result.Code!.Value, result.Error!);
-
-            User user = result.Entity!;
-
-            return await GetDepartmentById(connection, user.DepartmentId);
-        }
-    }
-
-    private async Task<ActionResult<DepartmentDto>> GetDepartmentById(IDbConnection connection, Guid departmentId)
-    {
-        var department = (await connection.DepartmentRepository.Get(id: departmentId)).FirstOrDefault();
-
-        if (department == null)
-            return NotFound();
-
-        return Ok(DepartmentDto.From(department));
     }
 }

@@ -46,15 +46,13 @@ public class LoginController(
             if (!result)
                 return BadRequest("Invalid credentials!");
 
-            if (user.UserRoles == null)
-                return BadRequest("Roles where not loaded!");
-
+            
             Authority authority = new Authority(
                 AuthorizationMethod.GetScheme(credentialsDto.AuthorizationMethod),
                 user.Id.ToString(),
                 user.SecurityStamp.ToString(),
                 EAuthorityType.User,
-                user.UserRoles.Select(m => m.Name).ToArray()
+                [user.UserType.ToString()]
             );
 
             ClaimsPrincipal principal = claimUtils.GetPrincipal(authority);
@@ -74,7 +72,7 @@ public class LoginController(
                             IssuedUtc = DateTimeOffset.Now
                         });
 
-                    return Ok("ok");
+                    return Ok();
                 }
                 default:
                 {

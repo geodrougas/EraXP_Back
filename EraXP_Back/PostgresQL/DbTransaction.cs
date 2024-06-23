@@ -5,7 +5,7 @@ namespace EraXP_Back.PostgresQL;
 
 public class DbTransaction (
     NpgsqlConnection connection, NpgsqlTransaction transaction)
-        :DbRepositories, IDbTransaction, IDbCrud, IDbExec, IAsyncDisposable
+        :DbRepositories, IDbTransaction
 {
     protected override NpgsqlConnection Connection => connection;
     protected override NpgsqlTransaction? Transaction => transaction;

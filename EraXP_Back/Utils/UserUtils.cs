@@ -2,18 +2,20 @@ using System.Security.Cryptography;
 using System.Text;
 using EraXP_Back.Models;
 using EraXP_Back.Models.Database;
+using EraXP_Back.Models.Domain.Enum;
+using EraXP_Back.Persistence;
 
 namespace EraXP_Back.Utils;
 
 public class UserUtils()
 {
-    public const int MIN_PASSWORD_LENGTH = 10;
+    public const int MIN_PASSWORD_LENGTH = 8;
     public bool ValidatePassword(User user, string password)
     {
         return user.Base64HashedPassword == GetHashedPasswordAsBase64(password, user.SecurityStamp);
     }
 
-    public string CreatePassword(Guid securityStamp, string password, string password2)
+    public string CreatePassword(ref Guid securityStamp, string password, string password2)
     {
         if (password != password2)
             throw new ArgumentException("The passwords provided did not match!");
@@ -35,5 +37,32 @@ public class UserUtils()
         return Convert.ToBase64String(
             hmacsha512.ComputeHash(
                 decodedPassword));
+    }
+    
+    
+
+    public static async Task<Result<UserUniversityInfo>> GetUserUniversityInfo(IDbConnection connection, User user)
+    {
+        if (user.UserType == UserType.Professor)
+        {
+            ProfessorUniversityInfo? info = await connection.UserRepository.GetProfessorsUniversityInfo(userId: user.Id);
+
+            if (info == null)
+                return (500, "WTF Error! Failure to find the professor's connection to a university!");
+
+            return info;
+        }
+
+        if (user.UserType == UserType.Student)
+        {
+            StudentUniversityInfo? info = await connection.UserRepository.GetStudentUniversityInfo(userId: user.Id);
+            
+            if (info == null)
+                return (500, "WTF Error! Failure to find the student's connection to a university!");
+
+            return info;
+        }
+
+        return (500, "Invalid type of user.");
     }
 }

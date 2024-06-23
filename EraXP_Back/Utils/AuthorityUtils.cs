@@ -12,7 +12,7 @@ public class AuthorityUtils
         if (authority == null)
             return (401, "You need to login to view this page!");
         
-        User? user = await connection.UserRepository.GetUserWithRoles(
+        User? user = await connection.UserRepository.Get(
             id: Guid.Parse(authority.Id), securityToken: Guid.Parse(authority.Key));
 
         if (user == null)

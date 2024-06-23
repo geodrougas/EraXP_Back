@@ -1,10 +1,11 @@
+using EraXP_Back.Models.Domain.Enum;
+
 namespace EraXP_Back.Models.Dto;
 
-public record UserDto (
+public record UserDto(
     string Username,
-    string Password,
-    string PasswordRepeat,
     string Email,
-    Guid UniversityId,
-    Guid DepartmentId
+    UserType UserType,
+    Guid? UniversityId,
+    Guid? DepartmentId
 );

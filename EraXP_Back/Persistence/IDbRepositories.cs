@@ -9,4 +9,7 @@ public interface IDbRepositories
     IDepartmentRepository DepartmentRepository { get; }
     IUniversityRepository UniversityRepository { get; }
     IUserRepository UserRepository { get; }
+    IPhotoRepository PhotoRepository { get; }
+    IContactsRepository ContactsRepository { get; }
+    ILanguageRepository LanguageRepository { get; }
 }

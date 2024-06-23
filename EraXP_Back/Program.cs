@@ -1,3 +1,5 @@
+using EraXP_Back.Persistence;
+using EraXP_Back.PostgresQL;
 using EraXP_Back.Utils;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -45,68 +47,102 @@ builder.Services.AddSwaggerGen(c =>
 builder.Services.AddControllers();
 
 #region UserClaims
-IConfigurationSection userClaimUtilsSection = builder.Configuration.GetSection("userClaimUtils");
 
-if (!userClaimUtilsSection.Exists())
-    throw new NullReferenceException("userUtils section was missing from the configuration!");
-
-string? key = userClaimUtilsSection["key"];
-
-if (key == null)
-    throw new NullReferenceException("The key for the JWT Signature is missing from the configuration!");
-
-string jwtIssuer = userClaimUtilsSection["issuer"] ?? "EraXP_Service";
-
-int jwtLifeSpan;
-
-if (!int.TryParse(userClaimUtilsSection["jwtLifeSpan"], out jwtLifeSpan))
-    jwtLifeSpan = 1440;
-
-builder.Services.AddSingleton<ClaimUtils>(it =>
 {
-    string? encoding = userClaimUtilsSection["encoding"] ?? "UTF-8";
+    IConfigurationSection userClaimUtilsSection = builder.Configuration.GetSection("userClaimUtils");
 
-    return new ClaimUtils(key, jwtIssuer, encoding, TimeSpan.FromMinutes(jwtLifeSpan));
-});
-#endregion UserClaims
+    if (!userClaimUtilsSection.Exists())
+        throw new NullReferenceException("userUtils section was missing from the configuration!");
 
-builder.Services.AddSingleton<UserUtils>();
+    string? key = userClaimUtilsSection["key"];
 
-builder.Services
-    .AddAuthentication(options =>
+    if (key == null)
+        throw new NullReferenceException("The key for the JWT Signature is missing from the configuration!");
+
+    string jwtIssuer = userClaimUtilsSection["issuer"] ?? "EraXP_Service";
+
+    int jwtLifeSpan;
+
+    if (!int.TryParse(userClaimUtilsSection["jwtLifeSpan"], out jwtLifeSpan))
+        jwtLifeSpan = 1440;
+
+    builder.Services.AddSingleton<ClaimUtils>(it =>
     {
+        string? encoding = userClaimUtilsSection["encoding"] ?? "UTF-8";
+
+        return new ClaimUtils(key, jwtIssuer, encoding, TimeSpan.FromMinutes(jwtLifeSpan));
+    });
+    
+    builder.Services
+        .AddAuthentication(options =>
+        {
             options.DefaultAuthenticateScheme = "Multiple_schemes";
             options.DefaultChallengeScheme = "Multiple_schemes";
             options.DefaultScheme = "Multiple_schemes";
-    })
-    .AddPolicyScheme("Multiple_schemes", "Multiple Schemes", options =>
-    {
-        options.ForwardDefaultSelector = context =>
+        })
+        .AddPolicyScheme("Multiple_schemes", "Multiple Schemes", options =>
         {
-            string?[]? authorizationHeader = context.Request.Headers.Authorization;
-
-            if (authorizationHeader != null
-                && authorizationHeader.Any(m => m != null && m.TrimStart().StartsWith("bearer", StringComparison.CurrentCultureIgnoreCase)))
-                return JwtBearerDefaults.AuthenticationScheme;
-
-            return CookieAuthenticationDefaults.AuthenticationScheme;
-        };
-    })
-    .AddJwtBearer(options =>
-        {
-            options.TokenValidationParameters = new TokenValidationParameters
+            options.ForwardDefaultSelector = context =>
             {
-                ValidateIssuer = true,
-                ValidateAudience = true,
-                ValidateLifetime = true,
-                ValidateIssuerSigningKey = true,
-                ValidIssuer = jwtIssuer,
-                ValidAudience = jwtIssuer,
-                IssuerSigningKey = new SymmetricSecurityKey(Convert.FromBase64String(key))
+                string?[]? authorizationHeader = context.Request.Headers.Authorization;
+
+                if (authorizationHeader != null
+                    && authorizationHeader.Any(m => m != null && m.TrimStart().StartsWith("bearer", StringComparison.CurrentCultureIgnoreCase)))
+                    return JwtBearerDefaults.AuthenticationScheme;
+
+                return CookieAuthenticationDefaults.AuthenticationScheme;
             };
-        }
-    )
-    .AddCookie();
+        })
+        .AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                    ValidIssuer = jwtIssuer,
+                    ValidAudience = jwtIssuer,
+                    IssuerSigningKey = new SymmetricSecurityKey(Convert.FromBase64String(key))
+                };
+            }
+        )
+        .AddCookie();
+}
+#endregion UserClaims
+
+#region db
+{
+    IConfigurationSection dbSection = builder.Configuration.GetSection("db");
+    string connectionString = dbSection["connectionString"]
+        ?? throw new NullReferenceException("You must provide a connectionstring for the database!");
+    builder.Services.AddSingleton<IDbConnectionFactory, DbConnectionFactory>(m =>
+        new DbConnectionFactory(connectionString));
+}
+#endregion
+
+#region CypherUtil
+
+{
+    IConfigurationSection cypherSection = builder.Configuration.GetSection("cypher");
+
+    if (!cypherSection.Exists())
+        throw new NullReferenceException("cypher section was missing from the configuration!");
+
+    string? key = cypherSection["key"];
+
+    if (key == null)
+        throw new NullReferenceException("The key field from the cypher section is missing from the configuration!");
+
+    builder.Services.AddSingleton<CypherUtil>(it => new CypherUtil(key));
+}
+
+#endregion
+
+builder.Services.AddSingleton<AuthorityUtils>();
+
+builder.Services.AddSingleton<UserUtils>();
+
 
 builder.Services.AddAuthorization();
 

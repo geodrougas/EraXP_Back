@@ -36,7 +36,7 @@ public abstract class DbExec : IDbExec
                 dynamicParameters.Add(dbParam.Name, dbParam.Value);
             }
 
-            paramObj = parameters;
+            paramObj = dynamicParameters;
         }
 
         return paramObj;

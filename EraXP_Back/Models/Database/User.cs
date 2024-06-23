@@ -1,3 +1,5 @@
+using EraXP_Back.Models.Domain.Enum;
+
 namespace EraXP_Back.Models.Database;
 
 public record User(
@@ -7,10 +9,7 @@ public record User(
     string NormalisedUsername,
     string Email,
     string NormalisedEmail,
-    Guid UniversityId,
-    Guid DepartmentId,
+    UserType UserType,
     Guid SecurityStamp,
-    Guid ConcurrencyStamp,
-    bool RolesLoaded,
-    List<Role>? UserRoles 
+    Guid ConcurrencyStamp
 );

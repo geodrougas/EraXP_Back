@@ -1,63 +1,62 @@
+using System.Runtime.InteropServices.JavaScript;
 using System.Runtime.InteropServices.Marshalling;
+using EraXP_Back.Models;
 using EraXP_Back.Models.Database;
+using EraXP_Back.Models.Domain;
+using EraXP_Back.Models.Domain.Enum;
 using EraXP_Back.Models.Dto;
 using EraXP_Back.Persistence;
 using EraXP_Back.Persistence.Repositories;
 using EraXP_Back.PostgresQL;
 using EraXP_Back.Repositories;
 using EraXP_Back.Utils;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 
 namespace EraXP_Back.Controllers.V1;
 
 [ApiController]
 [Route("/api/v1/[Controller]")]
 public class UserController(
-    DbConnectionFactory connectionFactory,
+    IDbConnectionFactory connectionFactory,
+    AuthorityUtils authorityUtils,
     ClaimUtils claimUtils,
     UserUtils userUtils
 ) : ControllerBase
 {
-    [HttpPost]
-    public async Task<ActionResult<string>> CreateUser([FromBody] UserDto userDto)
+    private Authority? _authority;
+    private Authority? Authority => _authority ??= claimUtils.GetAuthority(User);
+    
+    [HttpGet]
+    [Authorize]
+    public async Task<ActionResult<UserDto>> GetUser()
     {
+        if (Authority == null)
+            return Unauthorized("Please log in!");
+        
         using (IDbConnection connection = await connectionFactory.ConnectAsync())
         {
-            bool userExists = await connection.UserRepository.CheckIfUserExistsOr(username: userDto.Username, email: userDto.Email);
+            Result<User> userResult = await authorityUtils.ValidateAuthority(connection, Authority);
+            if (userResult.Error != null)
+                return StatusCode(userResult.Code!.Value, userResult.Error);
 
-            if (userExists)
-                return BadRequest("A user already exists with that username or email.");
+            User user = userResult.Entity!;
 
-            if (userDto.Password != userDto.PasswordRepeat)
-                return BadRequest("Password mismatch!");
+            Result<UserUniversityInfo> infosResult =
+                await UserUtils.GetUserUniversityInfo(connection, user);
 
-            if (userDto.Password.Length < UserUtils.MIN_PASSWORD_LENGTH)
-                return ($"Your password's length must be greater than {UserUtils.MIN_PASSWORD_LENGTH}!");
+            Guid? universityId = null;
+            Guid? departmentId = null;
+            
+            if (infosResult.IsSuccess)
+            {
+                UserUniversityInfo userUniversityInfo = infosResult.Entity!;
+                universityId = userUniversityInfo.UniversityId;
+                departmentId = userUniversityInfo.DepartmentId;
+            }
 
-            Guid securityToken = Guid.NewGuid();
-            Guid concurrencyToken = Guid.NewGuid();
-
-            string password = userUtils.CreatePassword(securityToken, userDto.Password, userDto.PasswordRepeat);
-
-            User user = new User(
-                Guid.NewGuid(),
-                userDto.Username,
-                password,
-                userDto.Username.ToUpperInvariant(),
-                userDto.Email,
-                userDto.Email.ToUpperInvariant(),
-                userDto.UniversityId,
-                userDto.DepartmentId,
-                securityToken,
-                concurrencyToken,
-                false,
-                null
-            );
-
-            await connection.Insert(user);
+            return Ok(new UserDto(user.Username, user.Email, user.UserType, universityId, departmentId));
         }
-        // save user roles
-        
-        return Ok();
     }
 }

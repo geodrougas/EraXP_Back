@@ -66,7 +66,7 @@ public class ClaimUtils
             switch (claim.Type)
             {
                 case "type":
-                    authorizationScheme = null;
+                    authorizationScheme = claim.Value;
                     break;
                 case ClaimTypes.NameIdentifier:
                     id = claim.Value;
@@ -100,7 +100,8 @@ public class ClaimUtils
             new Claim("key", authority.Key),
             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
             new Claim("authority_type", authority.Type.ToString())
-        });
+        }, authority.AuthorizationScheme);
+        
         foreach (var role in authority.Roles)
         {
             identity.AddClaim(new Claim(ClaimTypes.Role, role));
