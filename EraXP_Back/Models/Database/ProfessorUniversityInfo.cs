@@ -4,7 +4,7 @@ public record ProfessorUniversityInfo(
     Guid Id,
     Guid UserId,
     Guid UniversityId
-) : UserUniversityInfo
+) : IUserUniversityInfo
 {
     public Guid? DepartmentId => null;
 }

@@ -1,3 +1,4 @@
+using System.Text.Json;
 using EraXP_Back.Models;
 using EraXP_Back.Models.Database;
 using EraXP_Back.Models.Domain;
@@ -16,7 +17,8 @@ namespace EraXP_Back.Controllers.V1;
 public class UniversityController(
     IDbConnectionFactory connectionFactory,
     AuthorityUtils authorityUtils,
-    ClaimUtils claimUtils
+    ClaimUtils claimUtils,
+    BlobStorage blobStorage
 ) : ControllerBase
 {
     private Authority? _authority;
@@ -24,6 +26,77 @@ public class UniversityController(
     
     [HttpPost]
     [Authorize(Roles = "Admin")]
+    public async Task<ActionResult<int>> CreateUniversity([FromForm] UniversityForm form)
+    {
+        if (form.Name == null)
+            return BadRequest("You need to provide a name for the university!");
+        
+        if (form.AddressName == null || form.GoogleLocationId == null || form.Latitude == default || form.Longitude == default)
+            return BadRequest("You need to provide an address for the university!");
+        
+        if (form.Language == null || form.LanguagePoints == null)
+            return BadRequest("You need to provide a language for the university!");
+
+        List<UniversityLanguageLevel>? languageLevel = JsonSerializer.Deserialize<List<UniversityLanguageLevel>>(form.LanguagePoints);
+
+        if (languageLevel == null)
+            return BadRequest("You need to provide a language for the university!");
+        
+        foreach (var item in languageLevel)
+        {
+            if (string.IsNullOrWhiteSpace(item.Name))
+            {
+                return BadRequest("Invalid language item");
+            }
+        }
+
+        using (IDbConnection connection = await connectionFactory.ConnectAsync())
+        {
+            Result<User> result = await authorityUtils.ValidateAuthority(connection, Authority);
+
+            if (!result.IsSuccess)
+            {
+                return StatusCode(result.Code!.Value, result.Error!);
+            }
+
+            int changes = 0;
+            Photo? photo = null;
+            if (form.Image != null)
+            {
+                Guid id = Guid.NewGuid();
+                string uri = await blobStorage.SaveFile(id, form.Image);
+                photo = new Photo(id, id.ToString(), uri);
+
+                changes += await connection.Insert(photo);
+            }
+
+            University university = new University(
+                Guid.NewGuid(),
+                form.Name,
+                form.Description ?? "",
+                photo?.Id,
+                JsonSerializer.Serialize(form.GetLanguage(languageLevel))
+            );
+            
+            Address address = new Address(
+                Guid.NewGuid(),
+                university.Id,
+                form.AddressName,
+                form.GoogleLocationId,
+                form.Latitude,
+                form.Longitude
+            );
+            
+            changes += await connection.Insert(university);
+            changes += await connection.Insert(address);
+
+            return Ok(changes);
+        }
+    }
+    
+    [HttpPost]
+    [Authorize(Roles = "Admin")]
+    [Route("alt")]
     public async Task<ActionResult<int>> CreateUniversity([FromBody] UniversityDto dto)
     {
         if (dto.AddressDto == null)
@@ -52,10 +125,28 @@ public class UniversityController(
         }
     }
 
-    [HttpPost]
-    [Route("{id}/photo")]
-    public async Task<ActionResult<int>> CreateUniversityPhoto([FromRoute] Guid id, [FromBody] UniversityCreationDto photoDto)
+    [HttpDelete]
+    [Authorize(Roles = "Admin")]
+    [Route("{id}/photo/{photoId}")]
+    public async Task<ActionResult<int>> DeleteUniversityPhoto([FromRoute] Guid id, [FromRoute] Guid photoId)
     {
+
+        using (IDbConnection connection = await connectionFactory.ConnectAsync())
+        {
+            return await connection.UniversityRepository.DeleteUniversityImage(photoId);
+        }
+    }
+    
+    [HttpPost]
+    [Authorize(Roles = "Admin")]
+    [Route("{id}/photo")]
+    public async Task<ActionResult<int>> CreateUniversityPhoto([FromRoute] Guid id, [FromForm] UniversityCreationDto photoDto)
+    {
+        if (photoDto.Photo == null)
+        {
+            return BadRequest("You need to upload a file!");
+        }
+        
         using (IDbConnection connection = await connectionFactory.ConnectAsync())
         {
             Result<User> result = await authorityUtils.ValidateAuthority(connection, Authority);
@@ -74,18 +165,24 @@ public class UniversityController(
             {
                 return BadRequest("University requested does not exist!");
             }
+            
+            int changes = 0;
+            Guid photoId = Guid.NewGuid();
+            string uri = await blobStorage.SaveFile(photoId, photoDto.Photo);
+            Photo photo = new Photo(photoId, photoId.ToString(), uri);
 
-            if (photoDto.PhotoId != null)
-            {
-                return await SaveManagedUniversityPhoto(connection, id, photoDto.PhotoId.Value);
-            }
+            changes += await connection.Insert(photo);
 
-            if (photoDto.Uri != null)
-            {
-                return await SaveUnmanagedUniversityPhoto(connection, id, photoDto.Uri);
-            }
+            UniversityPhoto universityPhoto = new UniversityPhoto(
+                Guid.NewGuid(),
+                id,
+                photo.Id,
+                null
+            );
+            
+            changes += await connection.Insert(universityPhoto);
 
-            return BadRequest("You need to provide either a managed or an unmanaged image to store!");
+            return changes;
         }
     }
 
@@ -113,34 +210,33 @@ public class UniversityController(
     }
     
     [HttpGet]
+    [AllowAnonymous]
     [Route("all")]
     public async Task<ActionResult<IEnumerable<UniversityDto>>> GetAllUniversities()
     {
-        using (IDbConnection connection = await connectionFactory.ConnectAsync())
+        await using (IDbConnection connection = await connectionFactory.ConnectAsync())
         {
              List<University> allUniversities = await connection.UniversityRepository.Get();
              List<UniversityDto> universityDtos = new List<UniversityDto>(allUniversities.Count);
+             
              Result<User> result = await authorityUtils.ValidateAuthority(connection, Authority);
 
-             if (!result.IsSuccess)
+             IUserUniversityInfo? userUniversityInfo = null;
+             if (result.IsSuccess)
              {
-                 return StatusCode(result.Code!.Value, result.Error!);
+                 User user = result.Entity!;
+
+                 Result<IUserUniversityInfo>? infoResult = null;
+                 if (user.UserType == UserType.Professor || user.UserType == UserType.Student)
+                 {
+                     infoResult = await UserUtils.GetUserUniversityInfo(connection, user);
+
+                     if (!infoResult.IsSuccess)
+                         return StatusCode(infoResult.Code!.Value, infoResult.Error!);
+
+                     userUniversityInfo = infoResult.Entity!;
+                 }
              }
-
-             User user = result.Entity!;
-
-             Result<UserUniversityInfo>? infoResult = null;
-             UserUniversityInfo? userUniversityInfo = null;
-             if (user.UserType == UserType.Professor || user.UserType == UserType.Student)
-             {
-                 infoResult = await UserUtils.GetUserUniversityInfo(connection, user);
-
-                 if (!infoResult.IsSuccess)
-                     return StatusCode(infoResult.Code!.Value, infoResult.Error!);
-
-                 userUniversityInfo = infoResult.Entity!;
-             }
-            
              
              foreach (var university in allUniversities)
              {
@@ -153,7 +249,7 @@ public class UniversityController(
     }
 
     private async Task<UniversityDto> FromUniversity(IDbConnection connection, University university,
-        UserUniversityInfo? userUniversityInfo, bool isComplete)
+        IUserUniversityInfo? userUniversityInfo, bool isComplete)
     {
         List<Address> addresses = await connection.UniversityRepository.GetAddress(uniId: university.Id);
         List<UniversityPhotoDto>? photos = null;
@@ -210,8 +306,8 @@ public class UniversityController(
 
             User user = result.Entity!;
 
-            Result<UserUniversityInfo>? infoResult = null;
-            UserUniversityInfo? userUniversityInfo = null;
+            Result<IUserUniversityInfo>? infoResult = null;
+            IUserUniversityInfo? userUniversityInfo = null;
             if (user.UserType == UserType.Professor || user.UserType == UserType.Student)
             {
                 infoResult = await UserUtils.GetUserUniversityInfo(connection, user);
@@ -241,8 +337,8 @@ public class UniversityController(
 
             User user = result.Entity!;
 
-            Result<UserUniversityInfo>? infoResult = null;
-            UserUniversityInfo? userUniversityInfo = null;
+            Result<IUserUniversityInfo>? infoResult = null;
+            IUserUniversityInfo? userUniversityInfo = null;
             if (user.UserType == UserType.Professor || user.UserType == UserType.Student)
             {
                 infoResult = await UserUtils.GetUserUniversityInfo(connection, user);
@@ -277,13 +373,13 @@ public class UniversityController(
             if (user.UserType != UserType.Professor && user.UserType != UserType.Student)
                 return BadRequest("You are not part of a faculty!");
             
-            Result<UserUniversityInfo> infoResult =
+            Result<IUserUniversityInfo> infoResult =
                 await UserUtils.GetUserUniversityInfo(connection, user);
 
             if (!infoResult.IsSuccess)
                 return StatusCode(infoResult.Code!.Value, infoResult.Error!);
             
-            UserUniversityInfo userUniversityInfo = infoResult.Entity!;
+            IUserUniversityInfo userUniversityInfo = infoResult.Entity!;
             
             return await GetUniversityConnected(connection, userUniversityInfo, userUniversityInfo.UniversityId);
         }
@@ -307,19 +403,19 @@ public class UniversityController(
 
             User user = result.Entity!;
 
-            Result<UserUniversityInfo> userUniversityInfos =
+            Result<IUserUniversityInfo> userUniversityInfos =
                 await UserUtils.GetUserUniversityInfo(connection, user);
 
             if (!userUniversityInfos.IsSuccess)
                 return StatusCode(userUniversityInfos.Code!.Value, userUniversityInfos.Error!);
             
-            UserUniversityInfo userUniversityInfo = userUniversityInfos.Entity!;
+            IUserUniversityInfo userUniversityInfo = userUniversityInfos.Entity!;
             
             return await GetAllForUniversityConnected(connection, userUniversityInfo, userUniversityInfo.UniversityId);
         }
     }
 
-    private async Task<ActionResult<UniversityDto>> GetAllForUniversityConnected(IDbConnection connection, UserUniversityInfo? userUniversityInfo, Guid universityId)
+    private async Task<ActionResult<UniversityDto>> GetAllForUniversityConnected(IDbConnection connection, IUserUniversityInfo? userUniversityInfo, Guid universityId)
     {
         List<University> university;
         
@@ -333,7 +429,7 @@ public class UniversityController(
         return Ok(universityDto);
     }
 
-    private async Task<ActionResult<UniversityDto>> GetUniversityConnected(IDbConnection connection, UserUniversityInfo? userUniversityInfo, Guid universityId)
+    private async Task<ActionResult<UniversityDto>> GetUniversityConnected(IDbConnection connection, IUserUniversityInfo? userUniversityInfo, Guid universityId)
     {
         List<University> university = await connection.UniversityRepository.Get(id: universityId);
 

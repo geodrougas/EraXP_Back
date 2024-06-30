@@ -2,6 +2,7 @@ using EraXP_Back.Models;
 using EraXP_Back.Models.Database;
 using EraXP_Back.Models.Dto;
 using EraXP_Back.Persistence;
+using EraXP_Back.Utils;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,32 +12,20 @@ namespace EraXP_Back.Controllers.V1;
 [ApiController]
 [Authorize(Roles = "Admin")]
 public class PhotoController(
-    IDbConnectionFactory connectionFactory
+    IDbConnectionFactory connectionFactory,
+    BlobStorage blobStorage
 ) : ControllerBase
 {
     [HttpPost]
     public async Task<ActionResult> UploadPhotoAsync([FromForm] UniversityFileDto content)
     {
-        string path = "./images";
-        // Upload a file to a service or store somewhere?
-        if (!Directory.Exists(path))
-        {
-            Directory.CreateDirectory(path);
-        }
-
-        path = Path.Combine(path, $"{Guid.NewGuid()}.png");
-
-        await using (FileStream fileStream = System.IO.File.Open(path, FileMode.Create, FileAccess.ReadWrite))
-        {
-            await content.File.CopyToAsync(fileStream);
-        }
-
+        Guid id = Guid.NewGuid();
+        string path = await blobStorage.SaveFile(id, content.File);
         await using (IDbConnection connection = await connectionFactory.ConnectAsync())
         {
-            Photo photo = new Photo(Guid.NewGuid(), content.Name, path);
+            Photo photo = new Photo(id, content.Name, path);
             await connection.Insert(photo);
         }
-
         return Ok();
     }
 
@@ -70,7 +59,7 @@ public class PhotoController(
                 return BadRequest("Photo was not found!");
             }
 
-            stream = System.IO.File.Open(photo.Uri, FileMode.Open);
+            stream = await blobStorage.GetFile(photo.Uri);
             filename = photo.Name;
         }
         

@@ -5,7 +5,7 @@ public record StudentUniversityInfo(
     Guid UserId,
     Guid UniversityId,
     Guid DepartmentId
-) : UserUniversityInfo
+) : IUserUniversityInfo
 {
-    Guid? UserUniversityInfo.DepartmentId => this.DepartmentId;
+    Guid? IUserUniversityInfo.DepartmentId => this.DepartmentId;
 }

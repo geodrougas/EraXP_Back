@@ -28,4 +28,9 @@ public class UniversityRepository(IDbExec dbExec) : IUniversityRepository
     {
         throw new NotImplementedException();
     }
+
+    public Task<int> DeleteUniversityImage(Guid photoId)
+    {
+        throw new NotImplementedException();
+    }
 }

@@ -41,7 +41,7 @@ public class UserUtils()
     
     
 
-    public static async Task<Result<UserUniversityInfo>> GetUserUniversityInfo(IDbConnection connection, User user)
+    public static async Task<Result<IUserUniversityInfo>> GetUserUniversityInfo(IDbConnection connection, User user)
     {
         if (user.UserType == UserType.Professor)
         {

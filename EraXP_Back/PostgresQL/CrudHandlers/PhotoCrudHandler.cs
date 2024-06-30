@@ -28,6 +28,14 @@ public class PhotoCrudHandler(
 
     public Task<int> Delete(IDbExec dbExec, object obj)
     {
-        throw new NotImplementedException();
+        string sql =
+            """
+            delete from 
+                photos
+            where
+                photos.id = @Id
+            """;
+
+        return dbExec.ExecuteAsync(sql, obj);
     }
 }

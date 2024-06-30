@@ -7,4 +7,6 @@ public interface IUniversityRepository
     Task<List<UniversityPhoto>> GetPhoto(Guid? id = null, Guid? uniId = null);
     Task<List<University>> Get(Guid? id = null);
     Task<List<Address>> GetAddress(Guid? uniId = null);
+
+    Task<int> DeleteUniversityImage(Guid photoId);
 }

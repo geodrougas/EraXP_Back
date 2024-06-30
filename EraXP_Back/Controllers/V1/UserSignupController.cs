@@ -26,7 +26,7 @@ public class UserSignupController(
     
     [HttpGet]
     [Route("generate")]
-    public async Task<ActionResult<string>> GenerateToken([FromQuery] UserType userType, string? email)
+    public async Task<ActionResult<string>> GenerateToken([FromQuery] UserType userType, [FromQuery] string? email)
     {
         using (IDbConnection connection = await connectionFactory.ConnectAsync())
         {

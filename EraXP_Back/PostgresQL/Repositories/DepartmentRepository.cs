@@ -2,6 +2,7 @@ using System.Data.Common;
 using EraXP_Back.Models;
 using EraXP_Back.Persistence;
 using EraXP_Back.Persistence.Repositories;
+using EraXP_Back.Persistence.Utils;
 using EraXP_Back.Repositories;
 
 namespace EraXP_Back.PostgresQL.Repositories;
@@ -10,9 +11,20 @@ public class DepartmentRepository(IDbExec dbExec) : IDepartmentRepository
 {
     private readonly IDbExec _dbExec = dbExec;
 
-    public Task<List<Department>> Get(Guid? id)
+    public async Task<List<Department>> Get(Guid? id)
     {
-        throw new NotImplementedException();
+        QueryBuilder queryBuilder = new QueryBuilder('@');
+
+        if (id != null)
+        {
+            queryBuilder.Add("id", "Id", id);
+        }
+        
+        string sql =
+            $"""select * from departments {queryBuilder}""";
+
+        await using DbDataReader reader = await dbExec.QueryAsync(sql, queryBuilder.DbParams);
+        return await GetDepartmentsFromReaderAsync(reader);
     }
 
     public async Task<List<Department>> GetUniversityDepartments(Guid uniId)

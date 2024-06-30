@@ -18,8 +18,9 @@ public class DepartmentController(
 {
     private Authority? _authority;
     private Authority? Authority => _authority ??= claimUtils.GetAuthority(User);
-    
+
     [HttpGet]
+    [AllowAnonymous]
     [Route("all")]
     public async Task<ActionResult<IEnumerable<DepartmentDto>>> GetAllDepartments()
     {

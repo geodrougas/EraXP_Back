@@ -10,6 +10,8 @@ using EraXP_Back.Persistence.Repositories;
 using EraXP_Back.PostgresQL;
 using EraXP_Back.Repositories;
 using EraXP_Back.Utils;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
@@ -17,6 +19,7 @@ using Microsoft.AspNetCore.SignalR;
 namespace EraXP_Back.Controllers.V1;
 
 [ApiController]
+[Authorize]
 [Route("/api/v1/[Controller]")]
 public class UserController(
     IDbConnectionFactory connectionFactory,
@@ -29,7 +32,6 @@ public class UserController(
     private Authority? Authority => _authority ??= claimUtils.GetAuthority(User);
     
     [HttpGet]
-    [Authorize]
     public async Task<ActionResult<UserDto>> GetUser()
     {
         if (Authority == null)
@@ -43,7 +45,7 @@ public class UserController(
 
             User user = userResult.Entity!;
 
-            Result<UserUniversityInfo> infosResult =
+            Result<IUserUniversityInfo> infosResult =
                 await UserUtils.GetUserUniversityInfo(connection, user);
 
             Guid? universityId = null;
@@ -51,12 +53,28 @@ public class UserController(
             
             if (infosResult.IsSuccess)
             {
-                UserUniversityInfo userUniversityInfo = infosResult.Entity!;
+                IUserUniversityInfo userUniversityInfo = infosResult.Entity!;
                 universityId = userUniversityInfo.UniversityId;
                 departmentId = userUniversityInfo.DepartmentId;
             }
 
             return Ok(new UserDto(user.Username, user.Email, user.UserType, universityId, departmentId));
         }
+    }
+
+    [HttpPost]
+    [Route("logout")]
+    public async Task<ActionResult> SignOut()
+    {
+
+        if (Authority == null)
+            return Ok();
+
+        if (Authority.AuthorizationScheme == CookieAuthenticationDefaults.AuthenticationScheme)
+        {
+            await HttpContext.SignOutAsync();
+        }
+
+        return Ok();
     }
 }

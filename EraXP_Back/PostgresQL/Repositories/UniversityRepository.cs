@@ -73,6 +73,14 @@ public class UniversityRepository(IDbExec dbExec) : IUniversityRepository
         return addresses;
     }
 
+    public Task<int> DeleteUniversityImage(Guid photoId)
+    {
+        string sql = """
+        DELETE FROM university_photos where photo_id = @PhotoId
+        """;
+        return dbExec.ExecuteAsync(sql, new { PhotoId = photoId });
+    }
+
     private async Task<List<Address>> GetAddressesFromReader(DbDataReader reader)
     {
         int idOrdinal = reader.GetOrdinal("id");

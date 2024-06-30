@@ -44,6 +44,8 @@ builder.Services.AddSwaggerGen(c =>
 
 });
 
+builder.Services.AddSingleton<BlobStorage>(m => new BlobStorage("./images"));
+
 builder.Services.AddControllers();
 
 #region UserClaims
@@ -107,7 +109,14 @@ builder.Services.AddControllers();
                 };
             }
         )
-        .AddCookie();
+        .AddCookie(it =>
+        {
+            it.Events.OnRedirectToLogin = context =>
+            {
+                context.Response.StatusCode = StatusCodes.Status401Unauthorized;
+                return Task.CompletedTask;
+            };
+        });
 }
 #endregion UserClaims
 
@@ -146,6 +155,8 @@ builder.Services.AddSingleton<UserUtils>();
 
 builder.Services.AddAuthorization();
 
+builder.Services.AddCors();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -158,6 +169,14 @@ if (app.Environment.IsDevelopment())
     {
     });
 }
+
+app.UseCors(it =>
+{
+    it.SetIsOriginAllowed((origin) => true)
+        .AllowAnyHeader()
+        .AllowAnyMethod()
+        .AllowCredentials();
+});
 
 app.MapControllers();
 
