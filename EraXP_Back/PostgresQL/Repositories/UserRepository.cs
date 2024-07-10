@@ -105,7 +105,6 @@ public class UserRepository(IDbExec dbExec) : IUserRepository
         int userIdOrdinal = reader.GetOrdinal("user_id");
         int universityIdOrdinal = reader.GetOrdinal("university_id");
         int departmentIdOrdinal = reader.GetOrdinal("department_id");
-        int erasmusScoreIdOrdinal = reader.GetOrdinal("erasmus_score");
 
         List<StudentUniversityInfo> infos = new List<StudentUniversityInfo>();
         while(await reader.ReadAsync())

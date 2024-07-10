@@ -21,18 +21,18 @@ public class UniversityDepartmentController(
     {
         await using (IDbConnection connection = await connectionFactory.ConnectAsync())
         {
-            List<Department> departments = await connection.DepartmentRepository.GetUniversityDepartments(uniId: UniversityId);
+            List<Department> departments = await connection.DepartmentRepository.Get(uniId: UniversityId);
             return Ok(departments.Select(m => DepartmentDto.From(m)));
         }
     }
 
     [HttpGet]
     [Route("complete")]
-    public async Task<ActionResult<IEnumerable<DepartmentDto>>> GetComplete()
+    public async Task<ActionResult<IEnumerable<DepartmentDto>>> GetComplete([FromQuery] Guid? id)
     {
         await using (IDbConnection connection = await connectionFactory.ConnectAsync())
         {
-            List<Department> departments = await connection.DepartmentRepository.GetUniversityDepartments(uniId: UniversityId);
+            List<Department> departments = await connection.DepartmentRepository.Get(uniId: UniversityId);
             List<DepartmentDto> dtos = new List<DepartmentDto>(departments.Count);
 
             foreach (var department in departments)

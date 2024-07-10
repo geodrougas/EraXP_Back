@@ -16,14 +16,12 @@ public class StudentUniversityInfoCrudHandler(
                 id,
                 user_id,
                 university_id,
-                department_id,
-                erasmus_score
+                department_id
             ) values (
                 @Id,
                 @UserId,
                 @UniversityId,
-                @DepartmentId,
-                @ErasmusScore
+                @DepartmentId
             )
             """;
         return _dbExec.ExecuteAsync(sql, obj);

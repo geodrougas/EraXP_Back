@@ -8,29 +8,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c8272286-64a4-442d-b946-b3d6a1d3738d" name="Changes" comment="//">
-      <change afterPath="$PROJECT_DIR$/EraXP_Back/Models/Dto/UniversityForm.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/EraXP_Back/Models/Dto/UniversityLanguageLevel.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/EraXP_Back/Utils/BlobStorage.cs" afterDir="false" />
+    <list default="true" id="c8272286-64a4-442d-b946-b3d6a1d3738d" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.EraXP_Back/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.EraXP_Back/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EraXP_Back/Controllers/V1/DepartmentController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/EraXP_Back/Controllers/V1/DepartmentController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EraXP_Back/Controllers/V1/PhotoController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/EraXP_Back/Controllers/V1/PhotoController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/EraXP_Back/Controllers/V1/UniversityController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/EraXP_Back/Controllers/V1/UniversityController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EraXP_Back/Controllers/V1/UserController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/EraXP_Back/Controllers/V1/UserController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EraXP_Back/Controllers/V1/UniversityDepartmentController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/EraXP_Back/Controllers/V1/UniversityDepartmentController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/EraXP_Back/Controllers/V1/UserSignupController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/EraXP_Back/Controllers/V1/UserSignupController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EraXP_Back/Models/Database/ProfessorUniversityInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/EraXP_Back/Models/Database/ProfessorUniversityInfo.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EraXP_Back/Models/Database/StudentUniversityInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/EraXP_Back/Models/Database/StudentUniversityInfo.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EraXP_Back/Models/Database/UniversityLanguage.cs" beforeDir="false" afterPath="$PROJECT_DIR$/EraXP_Back/Models/Database/UniversityLanguage.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EraXP_Back/Models/Database/UserUniversityInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/EraXP_Back/Models/Database/UserUniversityInfo.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EraXP_Back/Models/Dto/UniversityCreationDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/EraXP_Back/Models/Dto/UniversityCreationDto.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EraXP_Back/Models/Dto/UniversityPhotoDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/EraXP_Back/Models/Dto/UniversityPhotoDto.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EraXP_Back/Persistence/Repositories/IUniversityRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/EraXP_Back/Persistence/Repositories/IUniversityRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EraXP_Back/PostgresQL/CrudHandlers/PhotoCrudHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/EraXP_Back/PostgresQL/CrudHandlers/PhotoCrudHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EraXP_Back/Models/Dto/SignupTokenDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/EraXP_Back/Models/Dto/SignupTokenDto.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EraXP_Back/Persistence/Repositories/IDepartmentRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/EraXP_Back/Persistence/Repositories/IDepartmentRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EraXP_Back/PostgresQL/CrudHandlers/StudentUniversityInfoCrudHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/EraXP_Back/PostgresQL/CrudHandlers/StudentUniversityInfoCrudHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EraXP_Back/PostgresQL/CrudHandlers/UniversityCrudHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/EraXP_Back/PostgresQL/CrudHandlers/UniversityCrudHandler.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/EraXP_Back/PostgresQL/Repositories/DepartmentRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/EraXP_Back/PostgresQL/Repositories/DepartmentRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EraXP_Back/PostgresQL/Repositories/UniversityRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/EraXP_Back/PostgresQL/Repositories/UniversityRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EraXP_Back/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/EraXP_Back/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EraXP_Back/Sqlite/Repositories/UniversityRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/EraXP_Back/Sqlite/Repositories/UniversityRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EraXP_Back/Utils/UserUtils.cs" beforeDir="false" afterPath="$PROJECT_DIR$/EraXP_Back/Utils/UserUtils.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EraXP_Back/PostgresQL/Repositories/UserRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/EraXP_Back/PostgresQL/Repositories/UserRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EraXP_Back/Sqlite/Repositories/DepartmentRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/EraXP_Back/Sqlite/Repositories/DepartmentRepository.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -88,33 +77,33 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    ".NET Launch Settings Profile.EraXP_Back: http.executor": "Run",
-    "Attach to Process.9197:dotnet.executor": "Debug",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "XThreadsFramesViewSplitterKey": "0.5005931",
-    "git-widget-placeholder": "main",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;.NET Launch Settings Profile.EraXP_Back: http.executor&quot;: &quot;Run&quot;,
+    &quot;Attach to Process.9197:dotnet.executor&quot;: &quot;Debug&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;XThreadsFramesViewSplitterKey&quot;: &quot;0.5005931&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "postgresql"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;postgresql&quot;
     ],
-    "rider.external.source.directories": [
-      "/home/coldhammer/.config/JetBrains/Rider2023.3/resharper-host/DecompilerCache",
-      "/home/coldhammer/.config/JetBrains/Rider2023.3/resharper-host/SourcesCache",
-      "/home/coldhammer/.local/share/Symbols/src"
+    &quot;rider.external.source.directories&quot;: [
+      &quot;/home/coldhammer/.config/JetBrains/Rider2023.3/resharper-host/DecompilerCache&quot;,
+      &quot;/home/coldhammer/.config/JetBrains/Rider2023.3/resharper-host/SourcesCache&quot;,
+      &quot;/home/coldhammer/.local/share/Symbols/src&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected=".NET Launch Settings Profile.EraXP_Back: http">
     <configuration name="EraXP_Back: http" type="LaunchSettings" factoryName=".NET Launch Settings Profile">
       <option name="LAUNCH_PROFILE_PROJECT_FILE_PATH" value="$PROJECT_DIR$/EraXP_Back/EraXP_Back.csproj" />
@@ -214,7 +203,10 @@
       <workItem from="1719214621393" duration="8527000" />
       <workItem from="1719593918043" duration="1308000" />
       <workItem from="1719654274938" duration="625000" />
-      <workItem from="1719729922880" duration="22447000" />
+      <workItem from="1719729922880" duration="22704000" />
+      <workItem from="1719761469647" duration="5910000" />
+      <workItem from="1719808608313" duration="10404000" />
+      <workItem from="1719929138742" duration="620000" />
     </task>
     <task id="LOCAL-00001" summary="Added the domain models">
       <option name="closed" value="true" />
@@ -288,7 +280,15 @@
       <option name="project" value="LOCAL" />
       <updated>1719150063279</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="//">
+      <option name="closed" value="true" />
+      <created>1719759789727</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1719759789727</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -338,13 +338,13 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/EraXP_Back/Controllers/V1/UniversityController.cs</url>
-          <line>168</line>
+          <line>202</line>
           <properties documentPath="$PROJECT_DIR$/EraXP_Back/Controllers/V1/UniversityController.cs" initialLine="156" containingFunctionPresentation="Method 'CreateUniversityPhoto'">
             <startOffsets>
-              <option value="5704" />
+              <option value="6829" />
             </startOffsets>
             <endOffsets>
-              <option value="5720" />
+              <option value="6845" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="13" />

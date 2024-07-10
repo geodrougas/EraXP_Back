@@ -11,7 +11,7 @@ public class DepartmentRepository(IDbExec dbExec) : IDepartmentRepository
 {
     private readonly IDbExec _dbExec = dbExec;
 
-    public async Task<List<Department>> Get(Guid? id)
+    public async Task<List<Department>> Get(Guid? id, Guid? uniId)
     {
         QueryBuilder queryBuilder = new QueryBuilder('@');
 
@@ -19,20 +19,16 @@ public class DepartmentRepository(IDbExec dbExec) : IDepartmentRepository
         {
             queryBuilder.Add("id", "Id", id);
         }
+
+        if (uniId != null)
+        {
+            queryBuilder.Add("university_id", "UniId", uniId);
+        }
         
         string sql =
             $"""select * from departments {queryBuilder}""";
 
         await using DbDataReader reader = await dbExec.QueryAsync(sql, queryBuilder.DbParams);
-        return await GetDepartmentsFromReaderAsync(reader);
-    }
-
-    public async Task<List<Department>> GetUniversityDepartments(Guid uniId)
-    {
-        string sql =
-            """select * from departments where university_id=@UniversityId""";
-
-        await using DbDataReader reader = await dbExec.QueryAsync(sql, new { UniversityId = uniId });
         return await GetDepartmentsFromReaderAsync(reader);
     }
 

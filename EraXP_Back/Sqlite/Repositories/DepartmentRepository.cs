@@ -8,12 +8,7 @@ public class DepartmentRepository(IDbExec dbExec) : IDepartmentRepository
 {
     private readonly IDbExec _dbExec = dbExec;
 
-    public Task<List<Department>> Get(Guid? id)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<List<Department>> GetUniversityDepartments(Guid uniId)
+    public Task<List<Department>> Get(Guid? id = null, Guid? uniId = null)
     {
         throw new NotImplementedException();
     }

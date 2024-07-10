@@ -168,7 +168,7 @@ public class UserSignupController(
     
     private async Task<ActionResult> SignUpUniversityStudent(SignupTokenDto token, SignUpDto signUpDto)
     {
-        if (!signUpDto.UniInfoDto!.DepartmentId.IsDefault())
+        if (signUpDto.UniInfoDto!.DepartmentId.IsDefault())
             return BadRequest("You need to provide a department id for the student!");
         
         await using IDbConnection connection = await connectionFactory.ConnectAsync();

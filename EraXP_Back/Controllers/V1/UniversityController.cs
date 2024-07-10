@@ -125,6 +125,40 @@ public class UniversityController(
         }
     }
 
+    [HttpPut]
+    [Authorize(Roles = "Admin")]
+    public async Task<ActionResult<int>> AlterUniversity([FromBody] UniversityDto dto)
+    {
+        if (dto.Id == null)
+            return BadRequest("You cannot update a university without it's id.");
+        
+        using (IDbConnection connection = await connectionFactory.ConnectAsync())
+        {
+            Result<User> result = await authorityUtils.ValidateAuthority(connection, Authority);
+
+            if (!result.IsSuccess)
+            {
+                return StatusCode(result.Code!.Value, result.Error!);
+            }
+
+            Guid addressId = dto.AddressDto.Id ?? Guid.NewGuid();
+
+            List<University> universities = await connection.UniversityRepository.Get(id: dto.Id.Value);
+
+            if (universities.Count == 0)
+                return BadRequest("Invalid university id.");
+
+            University university = universities[0] with
+            {
+                Language = JsonSerializer.Serialize(dto.Language)
+            };
+
+            int changes = await connection.Update(university);
+
+            return Ok(changes);
+        }
+    }
+
     [HttpDelete]
     [Authorize(Roles = "Admin")]
     [Route("{id}/photo/{photoId}")]
@@ -272,7 +306,7 @@ public class UniversityController(
                 .Select(m => UniversityPhotoDto.From(m, baseUrl)).ToList();
 
             departments = (await connection.DepartmentRepository
-                .GetUniversityDepartments(uniId: university.Id))
+                .Get(uniId: university.Id))
                 .Select(m => DepartmentDto.From(m)).ToList();
         }
 

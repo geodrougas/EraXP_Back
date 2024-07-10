@@ -26,11 +26,12 @@ public class UniversityCrudHandler(
         string sql =
             """
             update universities set
-                id = @Id,
                 name = @Name,
                 description = @Description,
-                university_language = @UniversityLanguage,
-                thumbnail_id = @ThumbnailId;
+                university_language = @Language,
+                thumbnail_id = @ThumbnailId
+            WHERE
+                id = @Id
             """;
         return dbExec.ExecuteAsync(sql, obj);
     }

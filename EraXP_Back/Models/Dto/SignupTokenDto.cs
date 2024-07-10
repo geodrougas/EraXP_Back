@@ -37,11 +37,11 @@ public record SignupTokenDto(
     public bool IsDepartmentMember()
     {
         int userTypeInInt = ((int)UserType);
-        return userTypeInInt >= 100 && userTypeInInt < 150;
+        return userTypeInInt >= 100 && userTypeInInt < 130;
     }
 
     public bool IsValid(SignUpDto dto)
     {
-        return (!IsUniMember() || dto.UniInfoDto != null) && (!IsDepartmentMember() || dto.UniInfoDto?.DepartmentId == null);
+        return (!IsUniMember() || dto.UniInfoDto != null) && (!IsDepartmentMember() || dto.UniInfoDto?.DepartmentId != null);
     }
 }
